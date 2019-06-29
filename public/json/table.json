@@ -1,0 +1,31 @@
+{
+  "errorCode": 0,
+  "msg": "",
+  "count": 1000,
+  "data": [
+    {
+      "id": 1,
+      "account": "一个帐号4名",
+      "nick_name": "昵称吗",
+      "username": "测试名",
+      "email": "13423@163.com",
+      "phone": "13427969600",
+      "receives": "1",
+      "img": "/admin/images/robot_portrait.png",
+      "role": "MT",
+      "is_lock":  1
+    },
+    {
+      "id": 11,
+      "account": "一个帐号4名1",
+      "nick_name": "昵称吗1",
+      "username": "测试名1",
+      "email": "13423@163.com1",
+      "phone": "134279696001",
+      "receives": "1",
+      "img": "/admin/images/robot_portrait.png",
+      "role": "MT",
+      "is_lock": 1 
+    }
+  ]
+}

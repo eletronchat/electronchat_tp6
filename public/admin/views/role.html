@@ -1,0 +1,322 @@
+<style>
+  .diy-tree {
+    border:solid 1px #dddddd;
+  }
+  .diy-tree-top>span{
+    float:right;
+    padding:0 10px; 
+  }
+  .dtree-icon {
+    top: 9px;
+    right: 8px;
+    position: absolute; 
+  }
+  .addmember {
+     margin-bottom: 4px;
+  }
+  .addmember-dom {
+    display: none;
+  }
+</style>
+
+<div class="layui-fluid">   
+  <div class="layui-card">
+    <div class="layui-tab layui-tab-card">
+      <ul class="layui-tab-title">
+        <li class="layui-this">客服管理</li>
+        <li>角色设置</li>
+      </ul>
+      <div class="layui-tab-content" >
+        <div class="layui-col-space20 layui-tab-item layui-show layui-row ">
+          <div class="layui-row layui-col-space10">
+            <div class="layui-col-md3 diy-tree ">
+              <div class="layui-col-rowu layui-row" >
+                   <div class="layui-card">
+                       <div class="layui-card-header ">
+                           客服分组 
+                           <button class="layui-btn layui-btn-sm" style="margin-left:35%">重构</button>  
+                           <button class="layui-btn layui-btn-sm">导出</button>  
+                       </div>
+                       <div class="layui-card-body">
+                         <div class="layui-input-inline" style="width:266px">
+                           <input class="layui-input" id="searchInput" value="" placeholder="输入查询节点内容">
+                            <i class="layui-icon dtree-icon" id="search_node">&#xe615;</i>
+                         </div>
+                       </div>
+                   </div>
+              </div>
+              <div>
+                <ul id="tree" class="dtree" data-id="0" style="height:100px;overflow: auto;">
+              </div>
+            </ul>
+          </div>
+          <div class="layui-col-md-offset3">
+            <div class="layui-card">
+              <div class="layui-card-header"> 
+                  <div class="layui-col-md3">
+                    客服列表
+                  </div>
+                    <form class="layui-form layui-col-md5 layui-col-md-offset4" action="" lay-filter="search">  
+                      <div class="layui-form-item">
+                        <div class="layui-inline">
+                          <div class="layui-input-inline" style="width:100px">
+                            <select name="top" lay-filter="select-group" >
+                              <option value="0">请选择</option>
+                            </select>  
+                          </div>
+                          <div class="layui-form-mid"></div>
+                          <div class="layui-input-inline" style="width:260px">
+                            <input class="layui-input" placeholder="输入客服姓名/昵称/帐号/手机号" name="keyword" value="" >
+                            <i class="layui-icon dtree-icon" id="search_node">&#xe615;</i>
+                          </div>
+                        </div>
+                      </div> 
+                  </form>
+              </div>
+              <!--数据表格, start-->
+              <div class="layui-card-body">
+                 <table id="table" lay-filter="table" class="layui-table"></table>
+                <script type="text/html" id="test-table-toolbar-toolbarDemo">
+                  <div class="layui-inline" lay-event="add" title="添加"><i class="layui-icon layui-icon-add-1"></i></div>
+                  <div class="layui-inline" lay-event="lock" title="锁定"><i class="layui-icon layui-icon-password"></i></div>
+                  <div class="layui-inline" lay-event="del" title="删除"><i class="layui-icon layui-icon-delete"></i></div>
+                </script>
+                 <script type="text/html" id="tableImg">
+                   <img  class="photo" src="{{d.img}}" style="max-width:25px"/>
+                 </script>
+                 <script type="text/html" id="table_bar">
+                   <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                   <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del_one">删除</a>
+                 </script>
+                 <script type="text/html" id="checkboxTpl">
+                   <input type="checkbox" name="is_lock" value="{{d.uid}}" title="锁定" data-id="{{d.id}}" lay-filter="is_lock" {{ d.is_lock == 1 ? 'checked' : '' }}>
+                 </script>
+              </div>
+              <!--数据表格, end-->
+            </div>
+          </div>
+        </div>
+        </div>
+        <div class="layui-tab-item">
+          <table id="role_list" lay-filter="role_list" class="layui-table"></table>
+          <script type="text/html" id="role_bar">
+            <a class="layui-btn layui-btn-xs" lay-event="role_edit">编辑</a>
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!--添加客服, start-->
+<form autocomplete="off" id='addmember-dom' class="layui-form layui-form-pane" style="display:none" lay-filter="add-member-form">
+  <div style="position: absolute;top: 10%;left:67%;">
+					<img id="preview" src="./images/robot_portrait.png" style="max-width: 79px">
+        </div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">账&nbsp;号</label>
+		<div class="layui-input-inline">
+			<input type="text" name="account" lay-verify="required|account" placeholder="用于登录或找回密码" autocomplete="off" class="layui-input">
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">密&nbsp;码</label>
+		<div class="layui-input-inline">
+			<input autocomplete="off" type="password" name="passwd" lay-verify="required|passwd" placeholder="6-20字,含字母数字或符号" autocomplete="off" class="layui-input">
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">确认密码</label>
+		<div class="layui-input-inline">
+			<input autocomplete="new-password" type="password" name="repasswd" lay-verify="required|repasswd" placeholder="6-20字,含字母数字或符号" autocomplete="off" class="layui-input">
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">接待量</label>
+		<div class="layui-input-inline">
+			<input type="text" name="receives" lay-verify="receives" placeholder="同时接待的人数，默认10人" autocomplete="off" class="layui-input">
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<div class="layui-inline">
+			<label class="layui-form-label">姓&nbsp;名</label>
+			<div class="layui-input-inline">
+				<input type="text" name="username" lay-verify="required" placeholder="工作报表用的" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-inline">
+			<label class="layui-form-label">头&nbsp;像</label>
+			<div class="layui-input-inline">
+				<button type="button" class="layui-btn layui-btn-danger" id="upload-img">
+					<i class="layui-icon">&#xe67c;</i>点击或将文件拖到这
+				</button>
+				<input class="layui-upload-file" type="file" accept="undefined" lay-verify="required" name="img">
+			</div>
+		</div>
+	</div>
+	<div class="layui-form-item">
+    <div class="layui-inline">
+			<label class="layui-form-label">眤&nbsp;称</label>
+			<div class="layui-input-inline">
+				<input type="text" name="nick_name" lay-verify="required" placeholder="给聊天的客户看的" autocomplete="off" class="layui-input">
+			</div>
+   	</div>
+    <div class="layui-inline">
+			<label class="layui-form-label">手&nbsp;机</label>
+			<div class="layui-input-inline">
+				<input type="text" name="phone" lay-verify="required|phone" placeholder="用于企业内部通讯" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<div class="layui-inline">
+			<label class="layui-form-label">邮&nbsp;箱</label>
+			<div class="layui-input-inline">
+				<input type="text" name="email" lay-verify="required|email" placeholder="请输入邮箱地址" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-inline">
+			<label class="layui-form-label">选择角色</label>
+			<div class="layui-input-inline">
+        <!--:xxx input不显示下拉框已选中的选项的-->
+				<select name="group_id" lay-verify="required"  lay-filter="select_role">
+           <option value=""></option>
+				</select>
+			</div>
+		</div>
+	</div>
+
+  <div class="layui-form-item">
+    <label class="layui-form-label">客服分组</label>
+    <div class="layui-input-block">
+      <div class="layui-unselect layui-form-select" id="city">
+        <div class="layui-select-title">
+          <input type="text" name="group" id="input_city" placeholder="请选择" readonly="" class="layui-input layui-unselect" lay-verify="required">
+          <i class="layui-edge"></i>
+        </div>
+      </div>
+      <div class="layui-card" id="test">
+        <div class="layui-card-body isshow" style="display:none; border: 1px solid silver">
+          <div id="toolbarDiv"><ul id="slTree" class="dtree" data-id="0" style="width: 100%;"></ul></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="layui-form-item">
+    <div class="layui-input-block" style="margin-left: 33%;">
+      <button class="layui-btn" lay-filter="add-member-form" lay-submit=""  id="submit-button">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+</form>
+<!--添加客服, end-->
+
+<!--编辑成员, start-->
+<form autocomplete="off" id='edit-member-dom' class="layui-form layui-form-pane" style="display:none" lay-filter="edit-member-form">
+  <div style="position: absolute;top: 10%;left:67%;">
+					<img id="preview" src="./images/robot_portrait.png" style="max-width: 79px">
+        </div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">账&nbsp;号</label>
+		<div class="layui-input-inline">
+			<input type="text" name="account" lay-verify="required|account" placeholder="用于登录或找回密码" autocomplete="off" class="layui-input">
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">密&nbsp;码</label>
+		<div class="layui-input-inline">
+			<input autocomplete="off" type="password" name="passwd" lay-verify="required|passwd" placeholder="6-20字,含字母数字或符号" autocomplete="off" class="layui-input">
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">确认密码</label>
+		<div class="layui-input-inline">
+			<input autocomplete="new-password" type="password" name="repasswd" lay-verify="required|repasswd" placeholder="6-20字,含字母数字或符号" autocomplete="off" class="layui-input">
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<label class="layui-form-label">接待量</label>
+		<div class="layui-input-inline">
+			<input type="text" name="receives" lay-verify="receives" placeholder="同时接待的人数，默认10人" autocomplete="off" class="layui-input">
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<div class="layui-inline">
+			<label class="layui-form-label">姓&nbsp;名</label>
+			<div class="layui-input-inline">
+				<input type="text" name="username" lay-verify="required" placeholder="工作报表用的" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-inline">
+			<label class="layui-form-label">头&nbsp;像</label>
+			<div class="layui-input-inline">
+				<button type="button" class="layui-btn layui-btn-danger" id="upload-img">
+					<i class="layui-icon">&#xe67c;</i>点击或将文件拖到这
+				</button>
+				<input class="layui-upload-file" type="file" accept="undefined" lay-verify="required" name="img">
+			</div>
+		</div>
+	</div>
+	<div class="layui-form-item">
+    <div class="layui-inline">
+			<label class="layui-form-label">眤&nbsp;称</label>
+			<div class="layui-input-inline">
+				<input type="text" name="nick_name" lay-verify="required" placeholder="给聊天的客户看的" autocomplete="off" class="layui-input">
+			</div>
+   	</div>
+    <div class="layui-inline">
+			<label class="layui-form-label">手&nbsp;机</label>
+			<div class="layui-input-inline">
+				<input type="text" name="phone" lay-verify="required|phone" placeholder="用于企业内部通讯" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+	</div>
+	<div class="layui-form-item">
+		<div class="layui-inline">
+			<label class="layui-form-label">邮&nbsp;箱</label>
+			<div class="layui-input-inline">
+				<input type="text" name="email" lay-verify="required|email" placeholder="请输入邮箱地址" autocomplete="off" class="layui-input">
+			</div>
+		</div>
+		<div class="layui-inline">
+			<label class="layui-form-label">选择角色</label>
+			<div class="layui-input-inline">
+        <!--:xxx input不显示下拉框已选中的选项的-->
+				<select name="group_id" lay-verify="required"  lay-filter="select_role">
+           <option value=""></option>
+				</select>
+			</div>
+		</div>
+	</div>
+
+  <div class="layui-form-item">
+    <label class="layui-form-label">客服分组</label>
+    <div class="layui-input-block">
+      <div class="layui-unselect layui-form-select" id="city">
+        <div class="layui-select-title">
+          <input type="text" name="group" id="input_city" placeholder="请选择" readonly="" class="layui-input layui-unselect" lay-verify="required">
+          <i class="layui-edge"></i>
+        </div>
+      </div>
+      <div class="layui-card" id="test">
+        <div class="layui-card-body isshow" style="display:none; border: 1px solid silver">
+          <div id="toolbarDiv"><ul id="slTree" class="dtree" data-id="0" style="width: 100%;"></ul></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="layui-form-item">
+    <div class="layui-input-block" style="margin-left: 33%;">
+      <button class="layui-btn" lay-filter="add-member-form" lay-submit=""  id="submit-button">立即提交</button>
+      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+    </div>
+  </div>
+</form>
+<!--编辑成员, end-->
+<script>
+  //载入./console/demo 模块
+  layui.use('role', layui.factory('role'));
+</script>

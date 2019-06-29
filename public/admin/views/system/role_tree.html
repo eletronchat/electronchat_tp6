@@ -1,0 +1,65 @@
+<div class="layui-card">
+  <div class="layui-card-header">权限目录树</div>
+  <div class="layui-card-body">
+    <form class="layui-form" lay-filter="role_tree">
+      <div class="layui-form-item" layui-fiffer>
+        <div class="layui-input-block" style="margin-left:0px">
+          <div id="LAY-auth-tree-index"></div>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-input-block" >
+          <button class="layui-btn" type="submit" lay-submit lay-filter="LAY-auth-tree-submit">确定</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+  <script>
+    layui.use(['jquery', 'authtree', 'form', 'layer'], function(){
+      var $ = layui.jquery;
+      var authtree = layui.authtree;
+      var form = layui.form;
+      var layer = layui.layer;
+      // 一般来说，权限数据是异步传递过来的
+      $.ajax({
+        headers: {"access-token": layui.data('layuiAdmin') ['access-token']
+        },
+        url: layui.cache.rest_url + '/roleList/' + layui.cache.role_id,
+        dataType: 'json',
+        success: function(data){
+          var trees = data.data.trees;
+          // 如果后台返回的不是树结构，请使用 authtree.listConvert 转换
+          authtree.render('#LAY-auth-tree-index', trees, {
+            inputname: 'authids[]', 
+            layfilter: 'lay-check-auth', 
+            'theme': 'auth-skin-default',
+            themePath: './css/'
+          });
+        }
+      });
+      form.render('checkbox', 'role_tree');
+      console.log(authtree.getChecked());
+      //提交
+      form.on('submit(role_tree)', function(obj){
+          var authids = authtree.getChecked('#LAY-auth-tree-index');
+        $.ajax({
+          headers: {"access-token": layui.data('layuiAdmin')['access-token']
+          },
+          url: layui.cache.rest_url + '/roleList/' + layui.cache.role_id,
+          data: {rules: authids},
+          type: "PUT",
+          success: function(res) {
+            if (res.errorCode == 0) {
+              layer.msg(res.msg, {icon: 1});
+              layer.close(layui.cache.popuRight);
+            } else {
+              layer.msg(res.msg, {icon: 2});
+            }
+          }
+        });
+          return false;
+      });
+      
+    });
+</script>
