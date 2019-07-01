@@ -7,11 +7,6 @@
           <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
         </a>
       </li>
-      <!--<li class="layui-nav-item layui-this layui-hide-xs layui-hide-sm layui-show-md-inline-block">
-        <a lay-href="" title="">
-          控制台
-        </a>
-      </li>-->
       <li class="layui-nav-item layui-hide-xs" lay-unselect>
         <a href="http://www.layui.com/admin/" target="_blank" title="前台">
           <i class="layui-icon layui-icon-website"></i>
@@ -57,12 +52,18 @@
         </a>
       </li>
       <li class="layui-nav-item" lay-unselect>
-        <script type="text/html" template lay-url="/json/user/session.js" 
-        lay-done="layui.element.render('nav', 'layadmin-layout-right');">
+        <!--:xxx 要使用 统一地址 变量， -->
+        <script type="text/html" template lay-url="/api/v1/myinfo" 
+        lay-done="layui.element.render('nav', 'layadmin-layout-right');" id="userinfo">
           <a href="javascript:;">
-            <cite>{{ d.data.username }}</cite>
+            <cite>{{ d.data.role_name }}</cite>
           </a>
           <dl class="layui-nav-child">
+            {{#  layui.each(d.data.modles, function(index, item){ }}
+                {{# if (item === '客服模式') { }}
+                    <dd><a href="/chat">{{ item }}</a></dd>
+                {{# } }}
+            {{#  }); }}
             <dd><a lay-href="set/user/info">基本资料</a></dd>
             <dd><a lay-href="set/user/password">修改密码</a></dd>
             <hr>
@@ -197,4 +198,8 @@
   <div class="layadmin-body-shade" layadmin-event="shade"></div>
   
 </div>
+<script>
+  //载入./console/demo 模块
+  layui.use('layout', layui.factory('layout'));
+</script>
 

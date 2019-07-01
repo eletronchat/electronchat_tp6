@@ -19,6 +19,7 @@ use think\facade\Env;
 use MemberGroupAccess;
 use app\api\model\Image;
 use app\api\model\AuthRule;
+use app\api\model\AuthGroupAccess;
 use app\api\service\Cache as CacheService;
 
 class Role extends Base
@@ -382,5 +383,35 @@ class Role extends Base
           return false;
         }
    }
+  
+
+    /**
+     * 获取自己的信息
+     * 
+     * @return array
+     */
+    public function getMyInfo()
+    {
+        $db_prefix = Env::get("database.prefix");
+        $token = $_SERVER['HTTP_ACCESS_TOKEN'];
+        $user = Member::alias('M')
+          ->rightJoin("{$db_prefix}auth_group_access AGA", "AGA.uid = M.uid")
+          ->rightJoin("{$db_prefix}auth_group AG", "AG.id = AGA.group_id")
+          ->where("M.web_token", $token)
+          ->field("AG.rules,AG.title as role_name")
+          ->find()
+          ->toArray();
+        if (array_key_exists('rules', $user)) {
+          $modes = AuthRule::whereIn('id', $user['rules'])
+            ->where('pid', 0)
+            ->field('title')
+            ->select()
+            ->toArray();
+          $modes = array_column($modes, 'title');
+          $user['modles'] =  $modes;
+        }
+        unset($user['rules']);
+        return $user;
+    }
 }
 

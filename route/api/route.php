@@ -45,6 +45,8 @@ Route::Group(':version', function(){
   Route::put('/members/:uid', ':version.Role/editMember');
   //删除成员
   Route::delete('/members/:uid', ':version.Role/del');
+  //读取个人信息
+  Route::get('/myinfo', ':version.Role/getMyInfo');
 });
 //获取token
 Route::Group(':version', function(){

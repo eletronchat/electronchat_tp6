@@ -216,4 +216,15 @@ class Role extends Base
             return parent::successMessage();
         }
      }
+
+
+     /**
+       *  个人信息 
+       *
+       */
+      public function getMyInfo()
+      {
+          $myInfo = (new RoleService())->getMyInfo();
+          return parent::successMessage($myInfo);
+      }
 }
