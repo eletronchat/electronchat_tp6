@@ -266,7 +266,7 @@
         ,{field:       'phone',             title:     '手机', edit:'text',        width:120,align: 'center'}
         ,{field:       'email',             title:     '邮箱',        width:150,align: 'center', edit:'text'}
         ,{field:       'receives',          title:     '接待量', edit:'text',      width:90, sort: true, align: 'center'}
-        ,{field:       'nick_name',         title:     '昵称',        width:90,align: 'center', edit:'text'}
+        ,{field:       'nick_name',         title:     '昵称',        align: 'center', edit:'text'}
         ,{field:       'role',              title:     '角色',        width:      100,align: 'center'}
         ,{field:'is_lock', title:'是否锁定', width:110, templet: '#checkboxTpl', unresize: true,align: 'center'}
         ,{fixed: 'right', title:'操作', toolbar: '#table_bar', width:120,align: 'center'}
