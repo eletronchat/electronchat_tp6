@@ -1,0 +1,89 @@
+
+<title>设置中心</title>
+
+<div class="layui-fluid">
+  <div class="layui-row layui-col-space15">
+    <!--二级菜单-->
+    <div class="layui-col-md2">
+      <div class="layui-side-scroll">
+        <script type="text/html" template lay-url="/api/v1/menu" 
+                                          lay-done="layui.element.render('nav', 'layadmin-system-side-menu-test');" >
+
+        <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu-test" lay-filter="layadmin-system-side-menu-test">
+        {{# 
+          var path =  layui.router().path
+          ,pathURL = layui.admin.correctRouter(path.join('/'))
+          ,dataName = layui.setter.response.dataName;
+
+          layui.each(d[dataName], function(index, item){ 
+            var hasChildren = typeof item.list === 'object' && item.list.length > 0
+            ,classSelected = function(){
+              var match = path[0] == item.name || (index == 0 && !path[0]) 
+              || (item.jump && pathURL == layui.admin.correctRouter(item.jump)) || item.spread;
+              if(match){
+                return hasChildren ? 'layui-nav-itemed' : 'layui-this';
+              }
+              return '';
+            }
+            ,url = (item.jump && typeof item.jump === 'string') ? item.jump : item.name;
+        }}
+          <li data-name="{{ item.name || '' }}" data-jump="{{ item.jump || '' }}" class="layui-nav-item {{ classSelected() }}">
+            <a href="javascript:;" {{ hasChildren ? '' : 'lay-href="'+ url +'"' }} lay-tips="{{ item.title }}" lay-direction="2">
+              <i class="layui-icon {{ item.icon }}"></i>
+              <cite>{{ item.title }}</cite>
+            </a>
+            {{# if(hasChildren){ }}
+              <dl class="layui-nav-child">
+              {{# layui.each(item.list, function(index2, item2){ 
+                var hasChildren2 = typeof item2.list == 'object' && item2.list.length > 0
+                ,classSelected2 = function(){
+                  var match = (path[0] == item.name && path[1] == item2.name) 
+                  || (item2.jump && pathURL == layui.admin.correctRouter(item2.jump)) || item2.spread;
+                  if(match){
+                    return hasChildren2 ? 'layui-nav-itemed' : 'layui-this';
+                  }
+                  return '';
+                }
+                ,url2 = (item2.jump && typeof item2.jump === 'string') 
+                  ? item2.jump 
+                : [item.name, item2.name, ''].join('/');
+              }}
+                <dd  data-name="{{ item2.name || '' }}"  data-jump="{{ item2.jump || '' }}" 
+                {{ classSelected2() ? ('class="'+ classSelected2() +'"') : '' }}>
+                  <a href="javascript:;" {{ hasChildren2 ? '' : 'lay-href="'+ url2 +'"' }}>{{ item2.title }}</a>
+                  {{# if(hasChildren2){ }}
+                    <dl class="layui-nav-child">
+                      {{# layui.each(item2.list, function(index3, item3){ 
+                        var match = (path[0] == item.name && path[1] == item2.name && path[2] == item3.name) 
+                        || (item3.jump && pathURL == layui.admin.correctRouter(item3.jump))
+                        ,url3 = (item3.jump && typeof item3.jump === 'string') 
+                          ? item3.jump 
+                        : [item.name, item2.name, item3.name].join('/')
+                      }}
+                        <dd data-name="{{ item3.name || '' }}"  data-jump="{{ item3.jump || '' }}" 
+                        {{ match ? 'class="layui-this"' : '' }}>
+                          <a href="javascript:;" lay-href="{{ url3 }}" {{ item3.iframe ? 'lay-iframe="true"' : '' }}>{{ item3.title }}</a>
+                        </dd>
+                      {{# }); }}
+                    </dl>
+                  {{# } }}
+                </dd>
+            {{# }); }}
+            </dl>
+            {{# } }}
+          </li>
+        {{# }); }}
+        </ul>
+        </script>
+      </div>
+    </div>
+    
+    <div class="layui-col-md2">
+    </div>
+    
+  </div>
+</div>
+<script>
+  //载入./console/demo 模块
+  layui.use('setting', layui.factory('setting'));
+</script>

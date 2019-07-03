@@ -18,7 +18,7 @@
         element = layui.element,
         router = layui.router(),
         laytpl = layui.laytpl;
-    $("#userinfo").attr('lay-url', '/hello');
+//    $("#userinfo").attr('lay-url', '/hello');
   });
   //输入接口
   e("layout", {});

@@ -18,26 +18,8 @@
         element = layui.element,
         router = layui.router(),
         laytpl = layui.laytpl;
-
-    var data = {
-      "errorCode": 0
-      ,"msg": ""
-      ,"data": {
-        "username": "贤心"
-        ,"sex": "男"
-        ,"role": 1
-      }
-    };
-    var controller_modle = document.getElementById('controller-modle');
-    var getTpl = controller_modle.innerHTML
-      ,view = document.getElementById('layui-header');
-    laytpl(getTpl).render(data, function(html){
-      view.innerHTML = html;
-    });
-    layui.element.render('nav', 'layadmin-layout-right');
-
+//    $("#userinfo").attr('lay-url', '/hello');
   });
-  
   //输入接口
   e("layout", {});
 });

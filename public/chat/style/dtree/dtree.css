@@ -46,7 +46,7 @@
 .dtree-toolbar-fixed a i:hover{opacity:0.8;filter:Alpha(opacity=80);}
 
 /* 树基本*/
-.dtree{width:260px;}
+.dtree{width:230px;}
 .dtree-nav-item{line-height:33px;padding-left:16px;}
 .dtree-nav-ul-sid{display: none;}
 
