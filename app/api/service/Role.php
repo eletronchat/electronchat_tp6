@@ -1,5 +1,5 @@
-<?php 
-/* 
+<?php
+/*
  *  Role 控制器服务层
  *  @author wuchuheng
  *  @data 2019/05/16
@@ -8,7 +8,7 @@
  */
 namespace app\api\service;
 
-use app\api\model\Member; 
+use app\api\model\Member;
 use app\api\service\Base;
 use think\facade\Db;
 use think\facade\Request;
@@ -28,7 +28,7 @@ class Role extends Base
      * 获取客服组数据树
      * :xxx  请求的数据用于添加客服分类用的:xxx这设计不符合rest规范,先将就下
      * @return obj
-     * 
+     *
      */
     public function getAllUser($forAddMember = '')
     {
@@ -45,7 +45,7 @@ class Role extends Base
         if (Request::get('addMember'))  return $subNode;
         //返回，更新子节点
         if (Request::get('nodeId/d') > 0) return $subNode;
-        $subNode[] = $otherNode; 
+        $subNode[] = $otherNode;
         //返回一级节点
         if (Request::get('nodeId/d') === 0 ) return $subNode;
         $data[] = [
@@ -56,7 +56,7 @@ class Role extends Base
           'children' => $subNode
         ];
         return $data;
-    } 
+    }
 
 
     /**
@@ -77,7 +77,7 @@ class Role extends Base
      * 添加客服组
      * @return  boolean    处理结果
      */
-    public function AddGroup() 
+    public function AddGroup()
     {
         $data['name'] = Request::param('nodeName');
         $pid = Request::param('parentId');
@@ -101,33 +101,33 @@ class Role extends Base
     public function delGroup()
     {
         $id = Request::delete('nodeId/d');
-        $isDel = MemberGroup::where('id', '=', $id)  
-          ->whereOr('path', 'like', "%-{$id}%") 
+        $isDel = MemberGroup::where('id', '=', $id)
+          ->whereOr('path', 'like', "%-{$id}%")
           ->delete();
         return $isDel;
     }
 
 
     /**
-     * 将数组遍历为数组树 
+     * 将数组遍历为数组树
      * @arr     有子节点的目录树
      * @tree    遍历赋值的树
-     * @return  array   
+     * @return  array
      *
-     */ 
+     */
     protected function _arrToTree($items, $pid = 'parentId')
     {
          $map  = [];
-         $tree = [];   
+         $tree = [];
          foreach ($items as &$it){
-           $el = &$it; 
+           $el = &$it;
            $el['title'] = $el['title'] . "(" .$el['count']. ")";
            unset($el['path']);
            unset($el['name']);
            unset($el['count']);
            unset($el['pid']);
            unset($el['fullpath']);
-           $map[$it['id']] = &$it; 
+           $map[$it['id']] = &$it;
          }  //数据的ID名生成新的引用索引树
          foreach ($items as &$it){
            $parent = &$map[$it[$pid]];
@@ -169,7 +169,7 @@ class Role extends Base
 
   /**
    *  添加新的成员
-   *  @return   boolean 
+   *  @return   boolean
    */
    public function addMember()
    {
@@ -212,7 +212,7 @@ class Role extends Base
 
     /**
      *  保存头像图片
-     *  @return  $img_id  int  相册id 
+     *  @return  $img_id  int  相册id
      */
      protected function _saveIcon()
      {
@@ -253,7 +253,7 @@ class Role extends Base
              ->whereOr('MG.id', $current_id);
          } elseif ($current_id === -1) {
            $query = $query->whereNotIn("M.uid", $mga_str);
-         } 
+         }
        }
        $result = $query
          ->field("M.uid,M.account,M.nick_name,M.phone,M.receives,M.username,I.url as img,AG.title as role,M.is_lock,M.email")
@@ -286,7 +286,7 @@ class Role extends Base
            $member->memberGroupAccess
              ->allowField(true)
              ->save($params);
-         } 
+         }
          //更新权限组
          if (Request::has('group_id')) {
            $member->authGroupAccess->group_id = Request::param('group_id/d', 'put');
@@ -307,14 +307,14 @@ class Role extends Base
        return true;
 
      }
-      
-    
+
+
     /**
      * 删除成员
-     * @param    $uid    init    成员uid 
+     * @param    $uid    init    成员uid
      * @return   boolean
      */
-     public function delMember(int $uid) 
+     public function delMember(int $uid)
 		 {
           Db::startTrans();
           try{
@@ -342,9 +342,9 @@ class Role extends Base
     {
         $roleList = (new AuthGroup())->getRulesById();
         $checkedIds = explode(',', $roleList);
-        $data = (new AuthRule())->AllToTree()->toArray();         
+        $data = (new AuthRule())->AllToTree()->toArray();
          foreach ($data as &$it){
-           $el = &$it; 
+           $el = &$it;
            $map[$it['value']] = &$it;
          }
          foreach ($data as &$it){
@@ -383,21 +383,23 @@ class Role extends Base
           return false;
         }
    }
-  
+
 
     /**
      * 获取自己的信息
-     * 
+     *
      * @return array
      */
     public function getMyInfo()
     {
         $db_prefix = Env::get("database.prefix");
         $token = $_SERVER['HTTP_ACCESS_TOKEN'];
+        $redis = (new CacheService())->getRedisInstance();
+        $account = $redis->hGet('member_'.$token, 'account');
         $user = Member::alias('M')
           ->rightJoin("{$db_prefix}auth_group_access AGA", "AGA.uid = M.uid")
           ->rightJoin("{$db_prefix}auth_group AG", "AG.id = AGA.group_id")
-          ->where("M.web_token", $token)
+          ->where("M.account", $account)
           ->field("AG.rules,AG.title as role_name")
           ->find()
           ->toArray();

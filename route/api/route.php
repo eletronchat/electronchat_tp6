@@ -2,15 +2,13 @@
 
 use think\facade\Route;
 
-//Route::get(':version/menu', ':version.Index/index');
-
 
 //api 后台模式菜单
 Route::group(':version', function(){
-  //自动切换模式
+  //管理模式
   Route::get('/menu', ':version.Menu/list');
-  //管理模式和客服模式选择
-  Route::get('/menu/:mode',  ':version.Menu/list');
+  //客服模式菜单
+  Route::get('/menu/chat',  ':version.Menu/chat');
 });
 
 //api 客服管理

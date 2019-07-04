@@ -7,14 +7,13 @@
     <div class="layui-col-md2">
       <div class="layui-side-scroll">
         <script type="text/html" template lay-url="/api/v1/menu" 
-                                          lay-done="layui.element.render('nav', 'layadmin-system-side-menu-test');" >
+            lay-done="layui.element.render('nav', 'layadmin-system-side-menu-test');" >
 
         <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu-test" lay-filter="layadmin-system-side-menu-test">
         {{# 
           var path =  layui.router().path
           ,pathURL = layui.admin.correctRouter(path.join('/'))
           ,dataName = layui.setter.response.dataName;
-
           layui.each(d[dataName], function(index, item){ 
             var hasChildren = typeof item.list === 'object' && item.list.length > 0
             ,classSelected = function(){
@@ -27,8 +26,9 @@
             }
             ,url = (item.jump && typeof item.jump === 'string') ? item.jump : item.name;
         }}
-          <li data-name="{{ item.name || '' }}" data-jump="{{ item.jump || '' }}" class="layui-nav-item {{ classSelected() }}">
-            <a href="javascript:;" {{ hasChildren ? '' : 'lay-href="'+ url +'"' }} lay-tips="{{ item.title }}" lay-direction="2">
+        <!--一级-->
+          <li data-name="{{ item.name || '' }}" data-test="hello" data-jump="{{ item.jump || '' }}" class="layui-nav-item {{ classSelected() }}">
+            <a href="javascript:;"  lay-tips="{{ item.title }}" lay-direction="2">
               <i class="layui-icon {{ item.icon }}"></i>
               <cite>{{ item.title }}</cite>
             </a>
