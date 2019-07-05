@@ -202,7 +202,7 @@
             var a = e.find("#" + f)
               , t = a.hasClass(b);
             C.sideFlexible(t ? "spread" : null),
-            C.resizeTable(350)
+            C.resizeTable(250)
         },
         refresh: function() {
             layui.index.render()

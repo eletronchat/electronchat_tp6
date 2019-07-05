@@ -18,6 +18,7 @@
         element = layui.element,
         router = layui.router(),
         laytpl = layui.laytpl;
+       //$("#LAY_app_flexible").click();
 //    $("#userinfo").attr('lay-url', '/hello');
   });
   //输入接口

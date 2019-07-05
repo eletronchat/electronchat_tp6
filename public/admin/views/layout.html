@@ -35,22 +35,19 @@
           </script>
           
         </a>
+
       </li>
-      <li class="layui-nav-item layui-hide-xs" lay-unselect>
-        <a href="javascript:;" layadmin-event="theme">
-          <i class="layui-icon layui-icon-theme"></i>
-        </a>
-      </li>
-      <li class="layui-nav-item layui-hide-xs" lay-unselect>
-        <a href="javascript:;" layadmin-event="note">
-          <i class="layui-icon layui-icon-note"></i>
-        </a>
-      </li>
-      <li class="layui-nav-item layui-hide-xs" lay-unselect>
-        <a href="javascript:;" layadmin-event="fullscreen">
-          <i class="layui-icon layui-icon-screen-full"></i>
-        </a>
-      </li>
+          <script type="text/html" template lay-url="/api/v1/myinfo">
+            {{#  layui.each(d.data.modles, function(index, item){ }}
+                {{# if (item === '客服工作台') { }}
+                    <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                      <a href="/chat" >
+                        <i class="layui-icon layui-icon-headset">客服工作台</i>
+                      </a>
+                    </li>
+                {{# } }}
+            {{#  }); }}
+      </script>
       <li class="layui-nav-item" lay-unselect>
         <!--:xxx 要使用 统一地址 变量， -->
         <script type="text/html" template lay-url="/api/v1/myinfo" 
