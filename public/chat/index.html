@@ -23,8 +23,25 @@
     ,app_name: '微讯智能客服系统'
     ,app_des: '中小企业智能客服解决方案'
     ,rest_url: '/api/v1' //REST api接口基地址
-  }).use('index', function(){
-    var layer = layui.layer, admin = layui.admin;
+  }).use(['index', 'post'], function(){
+    var layer = layui.layer
+      ,admin = layui.admin
+      ,post  = layui.post;
+    //把页面消息转发给后台      
+    post.inbox({
+      from: 'websocket', //声明地址
+      onMessage: function(data) {
+        console.log(data); 
+      }
+    });
+    //把后台的消息转发给对应页面 
+    post.sent({
+      data: {
+        value: '我是websocket', // 发件的内容
+        to: 'chat' // 消息地址
+      }
+    });
+
     /*layer.ready(function(){
       admin.popup({
         content: '单页面专业版默认未开启“多标签”功能，实际运用时，你可以自定义是否开启'

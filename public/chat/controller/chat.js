@@ -7,13 +7,28 @@
  */
 ;layui.define(function(e) {
    
-  layui.use(['element', 'form', 'layer', 'layedit'], function(){
+  layui.use(['element', 'form', 'layer', 'layedit', 'post'], function(){
     var layer = layui.layer,
         form  = layui.form,
+        post  = layui.post,
         element = layui.element;
         element.render();
         element.render('collapse');
         layedit = layui.layedit;
+        post.inbox({
+          from: 'chat',  
+          onMessage: function(data) {
+            console.log(data); 
+          }
+        });
+
+        post.sent({
+          data: {
+            value: '我是chat页面', // 发件的内容
+            to: 'websocket' // 接收人  
+          }
+        });
+        
     layedit.build('input-area', {
      height : 180,
      tool: [
