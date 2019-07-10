@@ -1,80 +1,3 @@
-<style>
-   .chat-message{
-     font-size: 2px;
-   }
-   .chat-guest{
-     color:black;
-   }
-   .chat-new-message{
-     float:right;
-   }
-   /**隐藏滚动条**/
-  .session-help,.contacts-box{
-     overflow:auto;
-     height: 89.4vh;
-     overflow-x: hidden; 
-     background: white; 
-   }
-   .contacts-box::-webkit-scrollbar {
-        display: none;
-    }
-   .chat-new-message-date{
-     float:right;
-   }
-   .session-top-right{
-     float:right;
-   }
-   /**会话记录窗口**/
-   .session-log{
-     height: 53.64vh;
-   }
-   /**会话区域**/
-   .session-input-box{
-     height: 35.76vh;
-   }
-   /**发送按钮**/
-   .message-sent{
-       float:right;
-   }
-   /**会话输入区域**/
-   .layui-layedit{
-       border-bottom:none;
-   }
-   .complement-input-line{
-       border-bottom:none;
-       border-right:none;
-       border-top:none;
-       border-color:rgb(230, 230, 230)
-   }
-   .session-area{
-     height: 89.4vh;
-   }
-   .help-content > div{
-     overflow-x: hidden; 
-     overflow-y: auto;
-     overflow:auto;
-     height: 79.8vh;
-   }
-   .help-content > div::-webkit-scrollbar {
-     display:none
-    }
-   .session-help-body{
-       padding-bottom:0px;
-   }
-   /**用户信息**/
-   form > div > .layui-form-label {
-     text-align:left;
-     padding-left:40px;
-     padding-right:0px;
-     width:60px;
-	 }
-   /**访问信息**/
-   form > div > div > .layui-form-label {
-     text-align:left;
-     width:150px;
-	 }
-   
-</style>
 <div class="layui-fluid">
   <div class="layui-row">
      <!-- 联系人列表 -->
@@ -84,157 +7,6 @@
            <div class="layui-collapse" >
              <div class="layui-colla-item">
                <h2 class="layui-colla-title">会话中(1)</h2>
-               <div class="layui-colla-content layui-show">
-                 <span class="chat-guest">
-                   Guest7748543404 
-                 </span>
-                 <span class="layui-badge-dot chat-new-message"></span>
-                 <span>
-                 </span>
-                 <br/>
-                 <span class='chat-message'>
-                   hello?有人吗？
-                 </span>
-                 <span class="chat-new-message-date">2019-04-18</span>
-               </div>
-               <div class="layui-colla-content layui-show">
-                 <span class="chat-guest">
-                   Guest7748543404 
-                 </span>
-                 <span class="layui-badge-dot chat-new-message"></span>
-                 <span>
-                 </span>
-                 <br/>
-                 <span class='chat-message'>
-                   hello?有人吗？
-                 </span>
-                 <span class="chat-new-message-date">2019-04-18</span>
-               </div>
-               <div class="layui-colla-content layui-show">
-                 <span class="chat-guest">
-                   Guest7748543404 
-                 </span>
-                 <span class="layui-badge-dot chat-new-message"></span>
-                 <span>
-                 </span>
-                 <br/>
-                 <span class='chat-message'>
-                   hello?有人吗？
-                 </span>
-                 <span class="chat-new-message-date">2019-04-18</span>
-               </div>
-               <div class="layui-colla-content layui-show">
-                 <span class="chat-guest">
-                   Guest7748543404 
-                 </span>
-                 <span class="layui-badge-dot chat-new-message"></span>
-                 <span>
-                 </span>
-                 <br/>
-                 <span class='chat-message'>
-                   hello?有人吗？
-                 </span>
-                 <span class="chat-new-message-date">2019-04-18</span>
-               </div>
-               <div class="layui-colla-content layui-show">
-                 <span class="chat-guest">
-                   Guest7748543404 
-                 </span>
-                 <span class="layui-badge-dot chat-new-message"></span>
-                 <span>
-                 </span>
-                 <br/>
-                 <span class='chat-message'>
-                   hello?有人吗？
-                 </span>
-               </div>
-               <div class="layui-colla-content layui-show">
-                 <span class="chat-guest">
-                   Guest7748543404 
-                 </span>
-                 <span class="layui-badge-dot chat-new-message"></span>
-                 <span>
-                 </span>
-                 <br/>
-                 <span class='chat-message'>
-                   hello?有人吗？
-                 </span>
-                 <span class="chat-new-message-date">2019-04-18</span>
-               </div>
-               <div class="layui-colla-content layui-show">
-                 <span class="chat-guest">
-                   Guest7748543404 
-                 </span>
-                 <span class="layui-badge-dot chat-new-message"></span>
-                 <span>
-                 </span>
-                 <br/>
-                 <span class='chat-message'>
-                   hello?有人吗？
-                 </span>
-                 <span class="chat-new-message-date">2019-04-18</span>
-               </div>
-               <div class="layui-colla-content layui-show">
-                 <span class="chat-guest">
-                   Guest7748543404 
-                 </span>
-                 <span class="layui-badge-dot chat-new-message"></span>
-                 <span>
-                 </span>
-                 <br/>
-                 <span class='chat-message'>
-                   hello?有人吗？
-                 </span>
-                 <span class="chat-new-message-date">2019-04-18</span>
-               </div>
-               <div class="layui-colla-content layui-show">
-                 <span class="chat-guest">
-                   Guest7748543404 
-                 </span>
-                 <span class="layui-badge-dot chat-new-message"></span>
-                 <span>
-                 </span>
-                 <br/>
-                 <span class='chat-message'>
-                   hello?有人吗？
-                 </span>
-               </div>
-               <div class="layui-colla-content layui-show">
-                 <span class="chat-guest">
-                   Guest7748543404 
-                 </span>
-                 <span class="layui-badge-dot chat-new-message"></span>
-                 <span>
-                 </span>
-                 <br/>
-                 <span class='chat-message'>
-                   hello?有人吗？
-                 </span>
-               </div>
-               <div class="layui-colla-content layui-show">
-                 <span class="chat-guest">
-                   Guest7748543404 
-                 </span>
-                 <span class="layui-badge-dot chat-new-message"></span>
-                 <span>
-                 </span>
-                 <br/>
-                 <span class='chat-message'>
-                   hello?有人吗？
-                 </span>
-               </div>
-               <div class="layui-colla-content layui-show">
-                 <span class="chat-guest">
-                   Guest7748543404 
-                 </span>
-                 <span class="layui-badge-dot chat-new-message"></span>
-                 <span>
-                 </span>
-                 <br/>
-                 <span class='chat-message'>
-                   hello?有人吗？
-                 </span>
-               </div>
                <div class="layui-colla-content layui-show">
                  <span class="chat-guest">
                    Guest7748543404 
@@ -270,15 +42,131 @@
           转接
           结束服务
         </span></div>
-      <div class="layui-card-body">
-          交流显示窗口 
+      <div class="layui-card-body chat-log" id="chat-log">
+        <!--中间提示-->
+        <h3>这是中间提示</h3>
+        <!--左边文字泡文字-->
+        <li>
+        <div class="layim-chat-user">
+          <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">
+          <cite>小闲<i>2019-07-09 21:55:34</i></cite>
+          </div>
+          <div class="layim-chat-text">
+            <img src="https://nim.nosdn.127.net/MTY2ODYxMDY=/bmltYV8xMjM1NTE3MTIwNF8xNTYyNTcxNTA1NjI1X2EyNWZmOWExLTAwM2MtNGNmYS1iZmNkLTdmMDJlYmRkNTllYw==?imageView&thumbnail=1500x850" />
+          </div>
+        </li>
+        <li>
+        <div class="layim-chat-user">
+          <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">
+          <cite>小闲<i>2019-07-09 21:55:34</i></cite>
+          </div>
+          <div class="layim-chat-text">
+            你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。
+          </div>
+        </li>
+        <li>
+        <div class="layim-chat-user">
+          <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">
+          <cite>小闲<i>2019-07-09 21:55:34</i></cite>
+          </div>
+          <div class="layim-chat-text">
+            你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。
+          </div>
+        </li>
+        <li>
+        <div class="layim-chat-user">
+          <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">
+          <cite>小闲<i>2019-07-09 21:55:34</i></cite>
+          </div>
+          <div class="layim-chat-text">
+            你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。
+          </div>
+        </li>
+        <li>
+        <div class="layim-chat-user">
+          <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">
+          <cite>小闲<i>2019-07-09 21:55:34</i></cite>
+          </div>
+          <div class="layim-chat-text">
+            你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。
+          </div>
+        </li>
+        <li>
+        <div class="layim-chat-user">
+          <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">
+          <cite>小闲<i>2019-07-09 21:55:34</i></cite>
+          </div>
+          <div class="layim-chat-text">
+            你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。
+          </div>
+        </li>
+        <li>
+        <div class="layim-chat-user">
+          <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">
+          <cite>小闲<i>2019-07-09 21:55:34</i></cite>
+          </div>
+          <div class="layim-chat-text">
+            你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。
+          </div>
+        </li>
+        <li>
+        <div class="layim-chat-user">
+          <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">
+          <cite>小闲<i>2019-07-09 21:55:34</i></cite>
+          </div>
+          <div class="layim-chat-text">
+            你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。
+          </div>
+        </li>
+        <li>
+        <div class="layim-chat-user">
+          <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">
+          <cite>小闲<i>2019-07-09 21:55:34</i></cite>
+          </div>
+          <div class="layim-chat-text">
+            你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。
+          </div>
+        </li>
+        <li>
+        <div class="layim-chat-user">
+          <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">
+          <cite>小闲<i>2019-07-09 21:55:34</i></cite>
+          </div>
+          <div class="layim-chat-text">
+            你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。
+          </div>
+        </li>
+        <!--右边文字泡文字-->
+				<li class="layim-chat-mine">
+					<div class="layim-chat-user">
+						<img src="https://res.layui.com/images/fly/avatar/00.jpg">
+						<cite>
+							<i>2019-07-09 22:43:10
+							</i>纸飞机
+						</cite>
+					</div>
+					<div class="layim-chat-text Isay">
+						你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。
+					</div>
+				</li>
+
+
+        <li>
+        <div class="layim-chat-user ">
+          <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">
+          <cite>小闲<i>2019-07-09 21:55:34</i></cite>
+          </div>
+          <div class="layim-chat-text guestSay">
+            你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。
+          </div>
+        </li>
       </div>
     </div>
   </div>
   <!--输入窗口-->
   <div class="layui-col-md12">
     <div class="layui-card session-input-box">
-      <div class="layui-card-body">
+      <div class="layui-card-body input-area">
         <textarea id="input-area" style="display: none;"></textarea>
         <button class="layui-btn layui-btn-primary complement-input-line"></button>
         <button class="layui-btn layui-btn-primary message-sent">发送S</button>
@@ -457,7 +345,6 @@
   </div>
 
 </div>
-
 
 <script>
   layui.use('chat', layui.factory('chat'));

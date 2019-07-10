@@ -1,0 +1,104 @@
+   .chat-message{
+     font-size: 2px;
+   }
+   .chat-guest{
+     color:black;
+   }
+   .chat-new-message{
+     float:right;
+   }
+   /**隐藏滚动条**/
+  .session-help,.contacts-box{
+     overflow:auto;
+     height: 89.4vh;
+     overflow-x: hidden; 
+     background: white; 
+   }
+   .contacts-box::-webkit-scrollbar {
+        display: none;
+    }
+   .chat-new-message-date{
+     float:right;
+   }
+   .session-top-right{
+     float:right;
+   }
+   /**会话记录窗口**/
+   .session-log{
+     height: 53.64vh;
+   }
+   /**会话区域**/
+   .session-input-box{
+     height: 35.76vh;
+   }
+   /**发送按钮**/
+   .message-sent{
+       float:right;
+   }
+   /**会话输入区域**/
+   .layui-layedit{
+       border-bottom:none;
+   }
+   .complement-input-line{
+       border-bottom:none;
+       border-right:none;
+       border-top:none;
+       border-color:rgb(230, 230, 230)
+   }
+   .session-area{
+     height: 89.4vh;
+   }
+   .help-content > div{
+     overflow-x: hidden; 
+     overflow-y: auto;
+     overflow:auto;
+     height: 79.8vh;
+   }
+   .help-content > div::-webkit-scrollbar {
+     display:none
+    }
+   .session-help-body{
+       padding-bottom:0px;
+   }
+   /**用户信息**/
+   form > div > .layui-form-label {
+     text-align:left;
+     padding-left:40px;
+     padding-right:0px;
+     width:60px;
+	 }
+   /**访问信息**/
+   form > div > div > .layui-form-label {
+     text-align:left;
+     width:150px;
+	 }
+   
+.chat-log {
+     overflow-x: hidden; 
+     overflow-y: auto;
+     overflow:auto;
+     height: 46.6vh;
+     padding-bottom: 0px;
+}
+.input-area {
+  padding-top: 0px;
+}
+.chat-log > h3 {
+    font-size: 12px;
+    color: #a3afb7;
+    text-align: center;
+}
+.layim-chat-text {
+  max-width:40vh;
+  margin-bottom:10px
+}
+
+.guestSay {
+  margin-left: 8vh;
+}
+.Isay {
+  margin-right: 8vh;
+}
+
+
+

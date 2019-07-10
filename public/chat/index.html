@@ -16,6 +16,8 @@
   <script src="./static/layui/src/layui.js"></script>
   <link rel="stylesheet" href="./style/dtree/dtree.css">
   <link rel="stylesheet" href="./style/dtree/font/dtreefont.css">
+  <link rel="stylesheet" href="./style/chat/index.css">
+  <link rel="stylesheet" href="./style/layim/layim.css">
   <script>
   layui.config({
     base: './' //指定 layuiAdmin 项目路径
@@ -28,10 +30,12 @@
       ,admin = layui.admin
       ,post  = layui.post;
     //把页面消息转发给后台      
+    var test = 1;
     post.inbox({
       from: 'websocket', //声明地址
       onMessage: function(data) {
-        console.log(data); 
+        console.log(test);
+        console.log('这里是第一页' + data.from); 
       }
     });
     //把后台的消息转发给对应页面 

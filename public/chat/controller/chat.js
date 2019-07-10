@@ -7,10 +7,11 @@
  */
 ;layui.define(function(e) {
    
-  layui.use(['element', 'form', 'layer', 'layedit', 'post'], function(){
+  layui.use(['element', 'jquery', 'form', 'layer', 'layedit', 'post'], function(){
     var layer = layui.layer,
         form  = layui.form,
         post  = layui.post,
+        $     = layui.jquery,
         element = layui.element;
         element.render();
         element.render('collapse');
@@ -40,7 +41,14 @@
      ]
     }); 
     form.render(); 
+    $(document).ready(function(){
+      //滚动条到最底下
+      var objDiv = document.getElementById('chat-log')
+      console.log(objDiv);
+      objDiv.scrollTop = objDiv.scrollHeight;
+    });
   });
+  
   //输入接口
   e("chat", {});
 });
