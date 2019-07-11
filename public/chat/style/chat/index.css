@@ -78,7 +78,6 @@
      overflow-y: auto;
      overflow:auto;
      height: 46.6vh;
-     padding-bottom: 0px;
 }
 .input-area {
   padding-top: 0px;
@@ -94,11 +93,29 @@
 }
 
 .guestSay {
-  margin-left: 8vh;
+  margin-left: 5vh;
 }
 .Isay {
-  margin-right: 8vh;
+  text-align:right;
+  margin-right: 5vh;
 }
 
-
+/* 设置滚动条的样式 */
+#chat-log::-webkit-scrollbar {
+width:4px;
+}
+/* 滚动槽 */
+#chat-log::-webkit-scrollbar-track {
+-webkit-box-shadow:inset006pxrgba(0,0,0,0.3);
+border-radius:10px;
+}
+/* 滚动条滑块 */
+#chat-log::-webkit-scrollbar-thumb {
+border-radius:10px;
+background:rgba(0,0,0,0.1);
+#chat-log-webkit-box-shadow:inset006pxrgba(0,0,0,0.5);
+}
+#chat-log::-webkit-scrollbar-thumb:window-inactive {
+  background:rgba(255,0,0,0.4);
+}
 

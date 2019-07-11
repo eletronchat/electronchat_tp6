@@ -30,21 +30,19 @@
       ,admin = layui.admin
       ,post  = layui.post;
     //把页面消息转发给后台      
-    var test = 1;
     post.inbox({
       from: 'websocket', //声明地址
       onMessage: function(data) {
-        console.log(test);
         console.log('这里是第一页' + data.from); 
       }
     });
     //把后台的消息转发给对应页面 
-    post.sent({
-      data: {
-        value: '我是websocket', // 发件的内容
-        to: 'chat' // 消息地址
-      }
-    });
+    //post.sent({
+    //  data: {
+    //    value: '我是websocket', // 发件的内容
+    //    to: 'chat' // 消息地址
+    //  }
+    //});
 
     /*layer.ready(function(){
       admin.popup({
