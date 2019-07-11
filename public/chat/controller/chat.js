@@ -27,22 +27,18 @@
      ]
     }); 
     post.inbox({
-      from: '/brower/chat/index/message',  
+      from: '/local/chat/index/input',  
       onMessage: function(e) {
         //接收聊天输入回车信号
         if (e.data.is_enter) {
-            var content = layedit.getText(index);
-           layedit.cleanContent(index);
-    post.sent({
-      data: {content: '编辑的内容是' + content +'。现转发给入口文件' },
-      to: '/brower/chat/index' // 接收人  
-    });
+          var content = layedit.getText(index);
+          layedit.cleanContent(index);
         }
       }
     });
     post.sent({
       data: {content: '你是入口文件吗？' },
-      to: '/brower/chat/index' // 接收人  
+      to: '/local/chat' // 接收人  
     });
         
     form.render(); 

@@ -77,7 +77,7 @@
      overflow-x: hidden; 
      overflow-y: auto;
      overflow:auto;
-     height: 46.6vh;
+     height: 45.4vh;
 }
 .input-area {
   padding-top: 0px;
@@ -102,7 +102,8 @@
 
 /* 设置滚动条的样式 */
 #chat-log::-webkit-scrollbar {
-width:4px;
+  width:4px;
+  height:3px;
 }
 /* 滚动槽 */
 #chat-log::-webkit-scrollbar-track {
@@ -118,4 +119,20 @@ background:rgba(0,0,0,0.1);
 #chat-log::-webkit-scrollbar-thumb:window-inactive {
   background:rgba(255,0,0,0.4);
 }
-
+.other-way-login {
+    height: 30px;
+    line-height: 30px;
+    font-size: 5px;
+    text-align: center;
+}
+.other-way-login .line {
+    display: inline-block;
+    width:  10vh;
+    border: 0.3px dashed #a3afb7;
+}
+.other-way-login .txt {
+    color: #a3afb7;
+    vertical-align: middle;
+    vertical-align: -20%;
+    margin: 0 0px;
+}

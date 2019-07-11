@@ -62,7 +62,6 @@
         if (e[0])
             return d(e[0].document.body.innerHTML)
     }
-    , //清空输入内容
     c.prototype.cleanContent = function(t) {
         var e = u(t);
         if (e[0])
@@ -136,8 +135,8 @@
               //把回车回信号发送给聊天页面
                post.sent({
                  data: { value: '这个数据来自编辑器回车信号,要发送到聊天工作台的主页上', is_enter: true },
-                 to: '/brower/chat/index/message',
-                 from: 'brower/chat/module/layedit'
+                 to: '/local/chat/index/input',
+                 from: '/local/chat/src/layedit'
                });
                 var a = m(r)
                   , l = p(a)
