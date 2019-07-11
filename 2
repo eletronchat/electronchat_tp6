@@ -31,19 +31,16 @@
       onMessage: function(e) {
         //接收聊天输入回车信号
         if (e.data.is_enter) {
-            var content = layedit.getText(index);
-           layedit.cleanContent(index);
-    post.sent({
-      data: {content: '编辑的内容是' + content +'。现转发给入口文件' },
-      to: '/brower/chat/index' // 接收人  
-    });
+            console.log(layedit.getText(index));
         }
       }
     });
-    post.sent({
-      data: {content: '你是入口文件吗？' },
-      to: '/brower/chat/index' // 接收人  
-    });
+    //post.sent({
+    //  data: {
+    //    value: '我是chat页面', // 发件的内容
+    //    to: 'websocket' // 接收人  
+    //  }
+    //});
         
     form.render(); 
     layedit.sync(index); 

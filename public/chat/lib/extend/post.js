@@ -17,7 +17,6 @@ layui.define(['jquery', 'form'], function(exports){
       this.worker = worker;
       worker.addEventListener('message', function(e) {
         //如果消息是给这个用户的，就回调
-          //obj.onMessage(e.data);
         if (typeof e.data.to !== 'undefined' && e.data.to === obj.from)  {
           obj.onMessage(e.data);
         }
@@ -29,12 +28,14 @@ layui.define(['jquery', 'form'], function(exports){
       }); 
     },
     sent: function(obj) {
-      obj.data.from = this.from; 
-      obj.data.time = typeof obj.data.time === 'undefined' ? (new Date()).valueOf() : obj.data.time;
-      var worker = this.worker;
+      var work = new SharedWorker('./work/worker.js', 'work'),
+      worker = work.port;
+      worker.start();
+      obj.time = typeof obj.time === 'undefined' ? (new Date()).valueOf() : obj.time;
+      obj.from = typeof obj.from === 'undefined' ? this.from : obj.from;
       worker.postMessage({
         status: 2,
-        data: obj.data 
+        data: obj
       });
     }
 	};

@@ -62,6 +62,12 @@
         if (e[0])
             return d(e[0].document.body.innerHTML)
     }
+    , //清空输入内容
+    c.prototype.cleanContent = function(t) {
+        var e = u(t);
+        if (e[0])
+            e[0].document.body.innerHTML = null;
+    }
     ,
     c.prototype.getText = function(t) {
         var i = u(t);
@@ -127,18 +133,12 @@
         c.on("keydown", function(t) {
             var e = t.keyCode;
             if (13 === e) {
-              //把回车事件通知聊天窗口
-              post.inbox({
-                from: '/brower/chat/module/layeidt', //声明地址
-                onMessage: function(data) {}
-              });
-              //把后台的消息转发给对应页面 
-              post.sent({
-                data: {
-                  value: {is_enter: true}, // 发件的内容
-                  to: '/brower/chat/index/message' // 消息地址
-                }
-              });
+              //把回车回信号发送给聊天页面
+               post.sent({
+                 data: { value: '这个数据来自编辑器回车信号,要发送到聊天工作台的主页上', is_enter: true },
+                 to: '/brower/chat/index/message',
+                 from: 'brower/chat/module/layedit'
+               });
                 var a = m(r)
                   , l = p(a)
                   , n = l.parentNode;

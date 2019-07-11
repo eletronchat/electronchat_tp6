@@ -31,9 +31,9 @@
       ,post  = layui.post;
     //把页面消息转发给后台      
     post.inbox({
-      from: 'websocket', //声明地址
-      onMessage: function(data) {
-        console.log('这里是第一页' + data.from); 
+      from: '/brower/chat/index', //声明地址
+      onMessage: function(e) {
+        console.log('这里是入口文本，现收到来自' +e.from+ '的消息,内容：'+ JSON.stringify(e.data)); 
       }
     });
     //把后台的消息转发给对应页面 
