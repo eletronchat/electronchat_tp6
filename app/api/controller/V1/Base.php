@@ -87,6 +87,11 @@ class Base
       }
       return json($result);
     }
+
+    public static function test()
+    {
+       return 1;
+    }
 }
 
 
