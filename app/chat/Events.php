@@ -21,6 +21,9 @@
 
 use \GatewayWorker\Lib\Gateway;
 use \app\chat\service\Login;
+use \app\chat\service\Check;
+use \app\chat\service\Chat;
+use \app\chat\service\Guest;
 
 
 /**
@@ -30,6 +33,45 @@ use \app\chat\service\Login;
  */
 class Events
 {
+    public static function onWebSocketConnect($client_id, $data)
+    {
+      //根据路由进行连接验证 
+      switch(parse_url($data['server']['REQUEST_URI'])['path']) {
+           //客户连接 
+           case '/service/guest/login':
+             if(Guest::letsChat()) {
+                //将客户拉入空闲座席
+                Guest::chatToWorker(); 
+             } else {
+                //否则进入排队等候
+             }
+           break;
+           //控制台连接
+           case '/service/admin/login' :
+                 // ...
+           break;
+           //客服工作台连接
+           case '/service/chat/login' :
+                //连接验证
+                $data['get']['access-token'] || Gateway::closeClient($client_id);
+                $token = $data['get']['access-token'];
+                if (!Check::chatConnect($token)) Gateway::closeClient($client_id);
+                //更新当前客服连接
+                Chat::updateConnectId($token, $client_id);
+           break;
+           // 断开其余非法连接
+           default: 
+             
+             var_dump($data['server']['REQUEST_URI']);
+             Gateway::closeClient($client_id);
+      }
+        //var_dump(Login::getClientIOS()); 
+        //var_export($data);
+        //if (!isset($data['get']['token'])) {
+        //     Gateway::closeClient($client_id);
+        //}
+    }
+
     /**
      * 当客户端连接时触发
      * 如果业务不需此回调可以删除onConnect
@@ -38,7 +80,6 @@ class Events
      */
     public static function onConnect($client_id)
     {
-       
         // 向当前client_id发送数据 
         Gateway::sendToClient($client_id, "Hello $client_id\r\n");
         // 向所有人发送
@@ -52,7 +93,7 @@ class Events
     */
    public static function onMessage($client_id, $message)
    {
-        var_dump(Login::test());
+        //var_dump($client_id);
         // 向所有人发送 
         Gateway::sendToAll("$client_id said $message\r\n");
    }

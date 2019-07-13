@@ -199,7 +199,7 @@
                  var values = components.map(function (component) { return component.value })
                  var murmur = Fingerprint2.x64hash128(values.join(''), 31)
                  localStorage.setItem("fingerprint", murmur);
-                 var chatSocket = new WebSocket("ws://electronchat_tp6.com:8282"); 
+                 var chatSocket = new WebSocket("ws://electronchat_tp6.com:8282/service/guest/login?fingerprint=" + murmur); 
                  chatSocket.onopen = function (event) {
                    message.value = {fingerPrint: murmur};
                    message = JSON.stringify(message);
