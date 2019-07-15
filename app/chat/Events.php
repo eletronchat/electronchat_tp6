@@ -56,12 +56,10 @@ class Events
 
            //客服工作台连接
            case '/service/chat/login' :
-                //连接验证
-                $data['get']['access-token'] || Gateway::closeClient($client_id);
-                $token = $data['get']['access-token'];
-                if (!Check::chatConnect($token)) Gateway::closeClient($client_id);
-                //更新当前客服连接
-                Chat::updateConnectId($token, $client_id);
+             //连接验证
+             if (!Check::chatConnect($data)) Chat::sendMessageAndCloseByClientId($client_id);
+              //初始化连接
+              Chat::initConnect($data['get']['access-token'], $client_id);
            break;
            // 断开其余非法连接
            default: 
@@ -108,7 +106,5 @@ class Events
     */
    public static function onClose($client_id)
    {
-       // 向所有人发送 
-       GateWay::sendToAll("$client_id logout\r\n");
    }
 }

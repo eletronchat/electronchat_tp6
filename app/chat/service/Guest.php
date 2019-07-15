@@ -9,6 +9,7 @@
 namespace app\chat\service;
 
 use app\chat\service\Base;
+use \GatewayWorker\Lib\Gateway;
 
 class Guest extends Base
 {
@@ -64,6 +65,25 @@ class Guest extends Base
          );
          //数据的第三方收集和持久化费时，就交给监听进程处理而不阻塞当前连接。
          $Redis->publish('listening',json_encode($message));
+         //客服不在线，进入错过队列
+         $Redis->select(3);
+         if(!$Redis->exists('chat_waiting_group')) {
+           Gateway::sendToClient($client_id, json_encode(array(
+               'type'   => 'miss',
+               'time'   => microtime(true)
+           ))); 
+           $Redis->lPush('missing_guest', json_encode(array(
+             'client_id' => $client_id,
+             'time'      => microtime(true)
+           )));
+         }
+         //if ($Redis->lLen('chat_waiting_group') > 0 ) {
+         //  //进入空闲座席
+         //    $group = $Redis->lPop('chat_waiting_group');
+         //    //$uid  = json_decode($group)['uid']; 
+         //} else {
+         // 
+         //}
     }
 }
 

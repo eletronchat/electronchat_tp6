@@ -24,9 +24,11 @@ class RedisMessage extends Base
 					 ->from('think_guest')
 					 ->where('fingerprint= :fingerprint')
 					 ->bindValues(array('fingerprint'=>$guest_data['fingerprint']))
-					 ->single();
+					 ->row();
+         //是回头客
          if ($has_guest_data) {
-           // ..
+             $gust_data = $has_guest_data;
+         // 新客户
 				 } else {
 					 // 是否广域网
            if (!filter_var($guest_data['ip'], FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)) {
@@ -57,28 +59,12 @@ class RedisMessage extends Base
          $expire = $config['redis']['expire'];
          $Redis->hMSet($guest_data['client_id'], $guest_data); 
 				 $Redis->expire($guest_data['client_id'], $expire);
+         $Redis->select(3);
          // 持久化
-         if ($has_guest_data) {
-
-         } else {
            unset($guest_data['client_id']);
-           $guest_data['name'] = 'Guest-'.time();
+           $guest_data['name'] = isset($guest_data['name']) && $guest_data['name'] !== null ? $guest_data['name'] : 'Guest_' . time();
 					 $insert_id = $db->insert('think_guest')->cols($guest_data)->query();
-				}
- 				sleep(1);
 		 }
 
-
-
-    /**
-     *  更新用户数据
-     *
-     *  $message    arrary  消息数据   
-     */
-    public static function putGuest(array $message)
-    {
-       global $db;
-       var_dump(filter_var('113.111.183.104', FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE));
-    }
 }
 
