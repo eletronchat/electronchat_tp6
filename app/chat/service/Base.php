@@ -33,10 +33,9 @@ class Base
      *  @warning 这个方法只能在首次连接才能调用
      *  @retrun string  设备操作系统名 
      */
-     public static function getClientIOS()
+     public static function getClientIOS($agent)
      {
-       var_dump($_SERVER);
-       $agent = strtolower($_SERVER['server']['HTTP_USER_AGENT']);
+       $agent = strtolower($agent);
        if(strpos($agent, 'windows nt')) {
          $platform = 'windows';
        } elseif(strpos($agent, 'macintosh')) {

@@ -39,17 +39,21 @@ class Events
       switch(parse_url($data['server']['REQUEST_URI'])['path']) {
            //客户连接 
            case '/service/guest/login':
+             //缓存客户信息
+             Guest::cacheGuestData($client_id, $data);
              if(Guest::letsChat()) {
                 //将客户拉入空闲座席
-                Guest::chatToWorker(); 
+                //Guest::chatToWorker(); 
              } else {
                 //否则进入排队等候
              }
            break;
+
            //控制台连接
            case '/service/admin/login' :
                  // ...
            break;
+
            //客服工作台连接
            case '/service/chat/login' :
                 //连接验证
