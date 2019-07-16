@@ -27,12 +27,12 @@ class Chat extends Base
        $member_data = $Redis->hGetAll($redis_key);
        //释放空闲座席入队
        $Redis->select(3);
-       foreach(json_decode($member_data['group_ids']) as $group_id) {
-         $list_data = [
+       for($i = 0 ; $i < (int)$member_data['receives']; $i++) {
+         $group_data = [
            'uid'=> $member_data['uid'],
            'create_time'=> microtime(true)
          ];
-         $Redis->Lpush('chat_waiting_group',json_encode($list_data));
+         $Redis->Lpush('chat_waiting_group',json_encode($group_data));
        }
        $Redis->select(0);
        //检测web_chat连接
