@@ -28,11 +28,7 @@ class Chat extends Base
        //释放空闲座席入队
        $Redis->select(3);
        for($i = 0 ; $i < (int)$member_data['receives']; $i++) {
-         $group_data = [
-           'uid'=> $member_data['uid'],
-           'create_time'=> microtime(true)
-         ];
-         $Redis->Lpush('chat_waiting_group',json_encode($group_data));
+         $Redis->Lpush('chat_waiting_group',$member_data['uid']);
        }
        $Redis->select(0);
        //检测web_chat连接
@@ -49,9 +45,90 @@ class Chat extends Base
        Gateway::joinGroup($client_id, $member_data['uid']);
        //对外挂牌当前帐号id在线聊天状态
        $Redis->select(3); 
-       $Redis->sAdd('chat__servers_online', $member_data['uid']);
+       $Redis->sAdd('chat_servers_online', $member_data['uid']);
        //保存客服连接指针，指向帐户详情
        $Redis->select(4);
        $Redis->set($client_id, $redis_key);
+    }
+
+
+    /**
+     * 是否聊天连接
+     * 
+     * @$client_id  string  连接id
+     * @return boolean
+     */
+    public static function isChatConnect(string $client_id)
+    {
+        $Redis = parent::getRedisInstance();
+        $Redis->select(4);
+        return $Redis->exists($client_id);
+    }
+
+
+    /**
+     * 删除连缓存
+     *
+     * return boolean
+     */
+    public static function delConnectCacheByCId(string $client_id)
+    {
+        $Redis = parent::getRedisInstance();
+        $Redis->select(4);
+        $Redis->del($client_id);
+    }
+
+
+    /**
+    * 获取uid
+    *
+    * @client_id  连接id
+    * @return numberic|false
+    */
+    public static function getUidByCientId(string $client_id)
+    {
+        $Redis = parent::getRedisInstance(); 
+        $Redis->select(4);
+        if (!$Redis->exists($client_id)) {
+            return false;  
+        } else {
+            $db0_key = $Redis->get($client_id);
+            $Redis->select(0);
+            $uid = $Redis->hGet($db0_key, 'uid');
+            return $uid; 
+        }
+    }
+
+
+
+    /**
+     * 撤回挂牌
+     *
+     */
+    public static function withdrawOnlineByUid(string $uid)
+    {
+        $Redis = self::getRedisInstance();
+        $Redis->select(3);  
+        $Redis->srem('chat_servers_online', $uid);
+    }
+
+
+    /**
+     * 撤回空闲座席
+     *
+     */
+    public static function withdrawChatWaitingGroup($uid)
+    {
+      $Redis = parent::getRedisInstance(); 
+      $Redis->select(3);
+      $len = $Redis->lLen('chat_waiting_group');
+      if ($len > 0) {
+        for ($i = 0; $i < $len; $i++) {
+          $q_uid = $Redis->lPop('chat_waiting_group');
+          if ($q_uid !== $uid) {
+              $q_uid = $Redis->lPush('chat_waiting_group', $q_uid);
+          }
+        }
+      }
     }
 }

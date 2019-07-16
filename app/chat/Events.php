@@ -106,5 +106,17 @@ class Events
     */
    public static function onClose($client_id)
    {
+     // 客服设备中断处理
+     if (Chat::isChatConnect($client_id)) {
+        $uid = Chat::getUidByCientId($client_id);
+        Chat::delConnectCacheByCId($client_id);
+        if (count(Gateway::getClientIdByUid($uid)) === 0) {
+          //当前账号所有设备都下线了，撤回挂牌在线
+          Chat::withdrawOnlineByUid($uid); 
+          // 撤回空闲座席
+          Chat::withdrawChatWaitingGroup($uid);
+          // .. 其它处理， 如果当前客户转移，或者等待10s,还是不能转移就向客户道歉原因
+        }
+     }
    }
 }
