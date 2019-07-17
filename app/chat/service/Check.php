@@ -51,8 +51,10 @@ class Check extends Base
       *
       * $client_id   string  连接id
       */ 
-    public static function sendMessageAndCloseByClientId(string $client_id) {
-         Gateway::sendToClient($client_id, json_decode(self::$error_message));
+    public static function sendMessageAndCloseByClientId(string $client_id) 
+    {
+         var_dump(self::$error_message);
+         Gateway::sendToClient($client_id, json_encode(['error_message'=>self::$error_message]));
          Gateway::closeClient($client_id);
     }
 

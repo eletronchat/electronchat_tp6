@@ -40,7 +40,10 @@ $gateway->pingInterval = 10;
 $gateway->pingData = '{"type":"ping"}';
 
 $gateway->onWorkerStart = function ($worker) {
-
+     define('CAHCE_MEMBER_DB', 0); //工作成员缓存数据库 
+     define('CAHCE_GUEST_CONNECT_DB', 1); //客户人员缓存数据库
+     define('CAHCE_CHAT_LOG_DB', 2);   //客户聊天缓存数据库 
+     define('CAHCE_INTERATION_DB', 3); //各种数据交互缓存数据库
 };
 
 // 如果不是在根目录启动，则运行runAll方法

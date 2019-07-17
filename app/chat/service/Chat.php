@@ -47,8 +47,7 @@ class Chat extends Base
        $Redis->select(3); 
        $Redis->sAdd('chat_servers_online', $member_data['uid']);
        //保存客服连接指针，指向帐户详情
-       $Redis->select(4);
-       $Redis->set($client_id, $redis_key);
+       $Redis->hSet('chat_connect', $client_id, $redis_key);
     }
 
 
@@ -61,21 +60,21 @@ class Chat extends Base
     public static function isChatConnect(string $client_id)
     {
         $Redis = parent::getRedisInstance();
-        $Redis->select(4);
-        return $Redis->exists($client_id);
+        $Redis->select(3);
+        return $Redis->hExists('chat_connect', $client_id);
     }
 
 
     /**
-     * 删除连缓存
+     * 删除连接缓存
      *
      * return boolean
      */
     public static function delConnectCacheByCId(string $client_id)
     {
         $Redis = parent::getRedisInstance();
-        $Redis->select(4);
-        $Redis->del($client_id);
+        $Redis->select(3);
+        $Redis->hDel('chat_connect', $client_id);
     }
 
 
@@ -88,11 +87,11 @@ class Chat extends Base
     public static function getUidByCientId(string $client_id)
     {
         $Redis = parent::getRedisInstance(); 
-        $Redis->select(4);
-        if (!$Redis->exists($client_id)) {
+        $Redis->select(3);
+        if (!$Redis->hExists('chat_connect', $client_id)) {
             return false;  
         } else {
-            $db0_key = $Redis->get($client_id);
+            $db0_key = $Redis->hGet('chat_connect', $client_id);
             $Redis->select(0);
             $uid = $Redis->hGet($db0_key, 'uid');
             return $uid; 

@@ -20,11 +20,7 @@
 //declare(ticks=1);
 
 use \GatewayWorker\Lib\Gateway;
-use \app\chat\service\Login;
-use \app\chat\service\Check;
-use \app\chat\service\Chat;
-use \app\chat\service\Guest;
-
+use \app\chat\service\{Login, Check, Guest, Chat};
 
 /**
  * 主逻辑
@@ -70,11 +66,6 @@ class Events
              var_dump($data['server']['REQUEST_URI']);
              Gateway::closeClient($client_id);
       }
-        //var_dump(Login::getClientIOS()); 
-        //var_export($data);
-        //if (!isset($data['get']['token'])) {
-        //     Gateway::closeClient($client_id);
-        //}
     }
 
     /**
@@ -118,7 +109,7 @@ class Events
           Chat::withdrawOnlineByUid($uid); 
           // 撤回空闲座席
           Chat::withdrawChatWaitingGroup($uid);
-          // .. 其它处理， 如果当前客户转移，或者等待10s,还是不能转移就向客户道歉原因
+          // .. 其它处理， 当前客户转移，或者等待10s,还是不能转移就向客户道歉原因
         }
      }
    }
