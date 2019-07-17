@@ -57,9 +57,12 @@ class Events
            //客服工作台连接
            case '/service/chat/login' :
              //连接验证
-             if (!Check::chatConnect($data)) Check::sendMessageAndCloseByClientId($client_id);
+             if (!Check::chatConnect($data)) {
+               Check::sendMessageAndCloseByClientId($client_id);
+             } else {
               //初始化连接
               Chat::initConnect($data['get']['access-token'], $client_id);
+             }
            break;
            // 断开其余非法连接
            default: 

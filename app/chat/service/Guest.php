@@ -67,7 +67,7 @@ class Guest extends Base
          $Redis->publish('listening',json_encode($message));
          //客服不在线，进入错过队列
          $Redis->select(3);
-         if(!$Redis->exists('chat_waiting_group')) {
+         if($Redis->scard('chat_servers_online') === 0 ) {
            Gateway::sendToClient($client_id, json_encode(array(
                'type'   => 'miss',
                'time'   => microtime(true)
@@ -76,14 +76,24 @@ class Guest extends Base
              'client_id' => $client_id,
              'time'      => microtime(true)
            )));
+         } else {
+             //进入空闲座席
+             $uid = $Redis->lPop('chat_waiting_group');
+             Gateway::joinGroup($client_id, $uid);  
+             //通知客服人员有新客服
+             Gateway::sendToUid($uid, json_encode([
+                 'from'  => '/service/connect/guest/' . $client_id, 
+                 'to'    => '/local/chat/index/message/onlineList',
+                 'data'  => [],
+                 'time'  => time()
+             ]));
+             // 缓存这个客户连接指向给它服务的工作人员uid
+             $Redis->select(1);
+             $Redis->hSet($client_id, 'uid', $uid);
+             //缓存用户设备指纹指向客服uid，用于下次连接优先匹配上次给他服务的工作人员
+             $Redis->select(3);
+             $Redis->hSet('guest_fingerprints', $guest_data['fingerprint'], $uid);
          }
-         //if ($Redis->lLen('chat_waiting_group') > 0 ) {
-         //  //进入空闲座席
-         //    $group = $Redis->lPop('chat_waiting_group');
-         //    //$uid  = json_decode($group)['uid']; 
-         //} else {
-         // 
-         //}
     }
 }
 
