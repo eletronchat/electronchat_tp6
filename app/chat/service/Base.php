@@ -73,5 +73,21 @@ class Base
         else
             return false;
     }
+
+
+    /**
+     * 客服是否在线
+     *
+     */
+    public static function isServerOnline() : bool
+    {
+        $Redis = self::getRedisInstance();
+        $Redis->select(3);
+        if ($Redis->scard('chat_servers_online') > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 

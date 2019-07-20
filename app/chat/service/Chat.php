@@ -43,6 +43,12 @@ class Chat extends Base
            $Redis->hset($redis_key, 'web_chat_connect_id', $client_id);
        } elseif($member_data['web_chat_connect_id'] != $client_id) {
            //剔除旧的web_chat连接
+           Gateway::sendToClient($member_data['web_chat_connect_id'], json_encode([
+               'from' => '/service/chat/initConnect/' . $member_data['web_chat_connect_id'],
+                'to'  => '/local/chat/index/message/notice',
+                'data'=> ['type'=>'warning', 'content' => '你已经在别的地方登录'],
+                'microtime' => microtime(true)
+           ]));
            Gateway::closeClient($member_data['web_chat_connect_id']);
        }
        //将所有这个账号的连接绑定到uid
@@ -138,32 +144,4 @@ class Chat extends Base
       }
     }
 
-
-    /**
-     * 与客户对接
-     * 
-     * @client_id   客户连接
-     */
-    public static function welcome(string $client_id)
-    {
-        $Redis = parent::getRedisInstance();
-        $Redis->select(3);
-        $uid = $Redis->lPop(''
-    }
-
-
-    /**
-     * 客服是否在线
-     *
-     */
-    public static function isServerOnline() : bool
-    {
-        $Redis = parent::getRedisInstance();
-        $Redis->select(3);
-        if ($Redis->hLen('chat_servers_online') > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 }

@@ -44,11 +44,11 @@ class Events
            case '/service/guest/login':
              //缓存客户信息
              Guest::cacheGuestData($client_id, $data);
-             if(Chat::isServerOnline()) {
+             if(Guest::isServerOnline()) {
                 //将客户拉入空闲座席
-                 Chat::welcome($client_id);
+                Guest::welcome($client_id);
              } else {
-                //否则进入排队等候
+                 // 客服不在线处理 
              }
            break;
 
@@ -69,7 +69,6 @@ class Events
            break;
            // 断开其余非法连接
            default: 
-             
              var_dump($data['server']['REQUEST_URI']);
              Gateway::closeClient($client_id);
       }
