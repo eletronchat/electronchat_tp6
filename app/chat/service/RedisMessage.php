@@ -27,7 +27,9 @@ class RedisMessage extends Base
 					 ->row();
          //是回头客
          if ($has_guest_data) {
-             $gust_data = $has_guest_data;
+             $guest_data['create_time'] = $has_guest_data['create_time'];
+             $guest_data['is_wan']      = $has_guest_data['is_wan'];
+             $guest_data['name']        = $has_guest_data['name'];
          // 新客户
 				 } else {
 					 // 是否广域网
@@ -55,15 +57,18 @@ class RedisMessage extends Base
          global $config;
          $Redis = new \Redis();
          $Redis->connect($config['redis']['host'], $config['redis']['port']);
-         $Redis->select(1);
+         $Redis->select(CAHCE_GUEST_CONNECT_DB);
          $expire = $config['redis']['expire'];
          $Redis->hMSet($guest_data['client_id'], $guest_data); 
 				 $Redis->expire($guest_data['client_id'], $expire);
-         $Redis->select(3);
          // 持久化
-           unset($guest_data['client_id']);
-           $guest_data['name'] = isset($guest_data['name']) && $guest_data['name'] !== null ? $guest_data['name'] : 'Guest_' . time();
-					 $insert_id = $db->insert('think_guest')->cols($guest_data)->query();
+         unset($guest_data['client_id']);
+         $guest_data['name'] = isset($guest_data['name']) && $guest_data['name'] !== null ? $guest_data['name'] : 'Guest_' . time();
+         if ($has_guest_data) {
+           $update_id = $db->update('think_guest')->cols($guest_data)->where('fingerprint="' . $guest_data['fingerprint'] . "\"")->query();
+         } else {
+           $insert_id = $db->insert('think_guest')->cols($guest_data)->query();
+         }
 		 }
 
 }

@@ -95,5 +95,18 @@ class Guest extends Base
              $Redis->hSet('guest_fingerprints', $guest_data['fingerprint'], $uid);
          }
     }
+
+
+    /**
+     *  清理客户连接缓存
+     *
+     *
+     */
+    public static function delConnectCacheByCId(string $client_id)
+    {
+       $Redis = self::getRedisInstance();
+       $Redis->select(1);
+       var_dump($Redis->del($client_id));
+    }
 }
 

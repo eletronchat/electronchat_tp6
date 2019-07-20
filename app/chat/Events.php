@@ -112,5 +112,10 @@ class Events
           // .. 其它处理， 当前客户转移，或者等待10s,还是不能转移就向客户道歉原因
         }
      }
+     //客服连接中断处理 
+     if (Guest::isGuestConnect($client_id)) {
+         Guest::delConnectCacheByCId($client_id);
+     }
+
    }
 }

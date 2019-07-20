@@ -205,6 +205,10 @@
                    message = JSON.stringify(message);
                    chatSocket.send(message);  
                  };
+                 chatSocket.onMessage =  function(event) {
+                     console.log(event);
+                 }
+                
              })
 					 })
 				 } else {
