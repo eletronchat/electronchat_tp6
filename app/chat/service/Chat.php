@@ -1,5 +1,12 @@
 <?php 
 /**
+ * File              : Chat.php
+ * @author           : wuchuheng <wuchuheng@163.com>
+ * Date              : 20.07.2019
+ * Last Modified Date: 20.07.2019
+ * Last Modified By  : wuchuheng <wuchuheng@163.com>
+ */
+/**
  * 聊天业务服务类
  *
  * @auth wuchuheng
@@ -129,5 +136,34 @@ class Chat extends Base
           }
         }
       }
+    }
+
+
+    /**
+     * 与客户对接
+     * 
+     * @client_id   客户连接
+     */
+    public static function welcome(string $client_id)
+    {
+        $Redis = parent::getRedisInstance();
+        $Redis->select(3);
+        $uid = $Redis->lPop(''
+    }
+
+
+    /**
+     * 客服是否在线
+     *
+     */
+    public static function isServerOnline() : bool
+    {
+        $Redis = parent::getRedisInstance();
+        $Redis->select(3);
+        if ($Redis->hLen('chat_servers_online') > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

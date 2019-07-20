@@ -1,5 +1,12 @@
 <?php 
 /**
+ * File              : Guest.php
+ * @author           : wuchuheng <wuchuheng@163.com>
+ * Date              : 20.07.2019
+ * Last Modified Date: 20.07.2019
+ * Last Modified By  : wuchuheng <wuchuheng@163.com>
+ */
+/**
  * 客户业务基类 
  *
  * @auth wuchuheng
@@ -29,17 +36,6 @@ class Guest extends Base
             return false;
     }
 
-
-    /**
-     *  将客户拉入空闲座席
-     *
-     */ 
-    public static function letsChat()
-    {
-        $Redis = parent::getRedisInstance(); 
-        $Redis->select(3);
-        //$uid = json_decode($Redis->lPop('chat_waiting_group'), true)['uid'];
-    }
 
 
     /**

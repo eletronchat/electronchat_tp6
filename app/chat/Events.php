@@ -1,5 +1,12 @@
 <?php
 /**
+ * File              : Events.php
+ * @author           : wuchuheng <wuchuheng@163.com>
+ * Date              : 20.07.2019
+ * Last Modified Date: 20.07.2019
+ * Last Modified By  : wuchuheng <wuchuheng@163.com>
+ */
+/**
  * This file is part of workerman.
  *
  * Licensed under The MIT License
@@ -37,9 +44,9 @@ class Events
            case '/service/guest/login':
              //缓存客户信息
              Guest::cacheGuestData($client_id, $data);
-             if(Guest::letsChat()) {
+             if(Chat::isServerOnline()) {
                 //将客户拉入空闲座席
-                //Guest::chatToWorker(); 
+                 Chat::welcome($client_id);
              } else {
                 //否则进入排队等候
              }
