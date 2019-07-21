@@ -37,7 +37,7 @@ $gateway->registerAddress = '127.0.0.1:1238';
 // 心跳间隔
 $gateway->pingInterval = 10;
 // 心跳数据
-$gateway->pingData = '{"type":"ping"}';
+$gateway->pingData = '{"type":"ping", "microtime": '. microtime(true) .'}';
 
 $gateway->onWorkerStart = function ($worker) {
      define('CAHCE_MEMBER_DB', 0); //工作成员缓存数据库 

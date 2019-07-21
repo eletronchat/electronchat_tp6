@@ -43,13 +43,13 @@ class Chat extends Base
            $Redis->hset($redis_key, 'web_chat_connect_id', $client_id);
        } elseif($member_data['web_chat_connect_id'] != $client_id) {
            //剔除旧的web_chat连接
-           Gateway::sendToClient($member_data['web_chat_connect_id'], json_encode([
-               'from' => '/service/chat/initConnect/' . $member_data['web_chat_connect_id'],
-                'to'  => '/local/chat/index/message/notice',
-                'data'=> ['type'=>'warning', 'content' => '你已经在别的地方登录'],
-                'microtime' => microtime(true)
-           ]));
-           Gateway::closeClient($member_data['web_chat_connect_id']);
+           /* Gateway::sendToClient($member_data['web_chat_connect_id'], json_encode([ */
+           /*     'from' => '/service/connect/guest/' . $member_data['web_chat_connect_id'], */
+           /*      'to'  => '/local/chat/index/message/notice', */
+           /*      'data'=> ['type'=>'warning', 'content' => '你已经在别的地方登录'], */
+           /*      'microtime' => microtime(true) */
+           /* ])); */
+           /* Gateway::closeClient($member_data['web_chat_connect_id']); */
        }
        //将所有这个账号的连接绑定到uid
        Gateway::bindUid($client_id, $member_data['uid']);

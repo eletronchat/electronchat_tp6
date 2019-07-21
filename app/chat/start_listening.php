@@ -44,7 +44,7 @@ $worker->onWorkerStart = function($worker)
           switch($message['to']) {
               //初始化用户信息
               case '/service/listening/initGuest' :
-								$is_ok = $RedisMessage::initGuest($message);
+                  $is_ok = $RedisMessage::initGuest($message);
               break;
           }
      });

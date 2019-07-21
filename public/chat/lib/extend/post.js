@@ -31,7 +31,7 @@ layui.define(['jquery', 'form'], function(exports){
       var work = new SharedWorker('./work/worker.js', 'work'),
       worker = work.port;
       worker.start();
-      obj.time = typeof obj.time === 'undefined' ? (new Date()).valueOf() : obj.time;
+      obj.microtime = typeof obj.microtime === 'undefined' ? (new Date()).valueOf() : obj.microtime;
       obj.from = typeof obj.from === 'undefined' ? this.from : obj.from;
       worker.postMessage({
         status: 2,

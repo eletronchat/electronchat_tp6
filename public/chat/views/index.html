@@ -1,381 +1,368 @@
 <div class="layui-fluid">
-  <div class="layui-row">
-     <!-- 联系人列表 -->
-     <div class="layui-col-md3 contacts-box">
-       <div class="layui-card">
-         <div class="layui-card-body">
-           <div class="layui-collapse" >
-             <div class="layui-colla-item">
-               <h2 class="layui-colla-title">会话中(1)</h2>
-               <div class="layui-colla-content layui-show">
-                 <span class="chat-guest">
-                   Guest7748543404 
-                 </span>
-                 <span class="layui-badge-dot chat-new-message"></span>
-                 <span>
-                 </span>
-                 <br>
-                 <span class="chat-message">
-                   hello?有人吗？
-                 </span>
-                 <span class="chat-new-message-date">2019-04-18</span>
-               </div>
-             </div>
-             <div class="layui-colla-item">
-               <h2 class="layui-colla-title">已离线(3)</h2>
-               <div class="layui-colla-content layui-show">内容区域</div>
-             </div>
-           </div>
-         </div>
-    </div>
-  </div>
-
-
-  <!--会话窗口-->
-  <div class="layui-col-md6 layui-row session-area">
-  <div class="layui-col-md12">
-    <div class="layui-card session-log">
-      <div class="layui-card-header">
-        Guest7748543404(输入中...)
-        <span class="session-top-center">
-        </span>
-        <span class="session-top-right">
-          转接
-          结束服务
-        </span></div>
-      <div class="layui-card-body chat-log" id="chat-log">
-        <!--中间提示-->
-        <h3>这是中间提示</h3>
-        <!--历史消息-->
-        <div class="other-way-login">
-          <span class="line"></span>  
-          <span class="txt">以上是历史消息</span>  
-          <span class="line"></span>  
+    <div class="layui-row">
+        <!-- 联系人列表 -->
+        <div class="layui-col-md3 contacts-box">
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <div class="layui-collapse" >
+                        <div class="layui-colla-item">
+                            <h2 class="layui-colla-title guest-online-list">会话中(<span id="online-num">0</span>)</h2>
+                        </div>
+                        <div class="layui-colla-item">
+                            <h2 class="layui-colla-title">已离线(3)</h2>
+                            <div class="layui-colla-content layui-show">内容区域</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <!--左边文字泡图片-->
-        <li>
-        <div class="layim-chat-user">
-          <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">
-          <cite>小闲<i>2019-07-09 21:55:34</i></cite>
-          </div>
-          <div class="layim-chat-text guestSay">
-            <img src="https://nim.nosdn.127.net/MTY2ODYxMDY=/bmltYV8xMjM1NTE3MTIwNF8xNTYyNTcxNTA1NjI1X2EyNWZmOWExLTAwM2MtNGNmYS1iZmNkLTdmMDJlYmRkNTllYw==?imageView&thumbnail=1500x850" />
-          </div>
-        </li>
-        <!--左边文字泡文字-->
-        <li>
-        <div class="layim-chat-user">
-          <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">
-          <cite>小闲<i>2019-07-09 21:55:34</i></cite>
-          </div>
-          <div class="layim-chat-text guestSay">
-            你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。
-          </div>
-        </li>
-        <li>
-        <div class="layim-chat-user">
-          <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">
-          <cite>小闲<i>2019-07-09 21:55:34</i></cite>
-          </div>
-          <div class="layim-chat-text guestSay">
-            你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。
-          </div>
-        </li>
-        <li>
-        <div class="layim-chat-user">
-          <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">
-          <cite>小闲<i>2019-07-09 21:55:34</i></cite>
-          </div>
-          <div class="layim-chat-text guestSay">
-            你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。
-          </div>
-        </li>
-        <li>
-        <div class="layim-chat-user">
-          <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">
-          <cite>小闲<i>2019-07-09 21:55:34</i></cite>
-          </div>
-          <div class="layim-chat-text guestSay">
-            你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。
-          </div>
-        </li>
-        <li>
-        <div class="layim-chat-user">
-          <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">
-          <cite>小闲<i>2019-07-09 21:55:34</i></cite>
-          </div>
-          <div class="layim-chat-text guestSay">
-            你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。
-          </div>
-        </li>
-        <li>
-        <div class="layim-chat-user">
-          <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">
-          <cite>小闲<i>2019-07-09 21:55:34</i></cite>
-          </div>
-          <div class="layim-chat-text guestSay">
-            你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。
-          </div>
-        </li>
-        <li>
-        <div class="layim-chat-user">
-          <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">
-          <cite>小闲<i>2019-07-09 21:55:34</i></cite>
-          </div>
-          <div class="layim-chat-text guestSay">
-            你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。
-          </div>
-        </li>
-        <li>
-        <div class="layim-chat-user">
-          <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">
-          <cite>小闲<i>2019-07-09 21:55:34</i></cite>
-          </div>
-          <div class="layim-chat-text guestSay">
-            你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。
-          </div>
-        </li>
-        <li>
-        <div class="layim-chat-user">
-          <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">
-          <cite>小闲<i>2019-07-09 21:55:34</i></cite>
-          </div>
-          <div class="layim-chat-text guestSay">
-            你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。
-          </div>
-        </li>
-        <!--右边文字泡文字-->
-				<li class="layim-chat-mine Isay">
-					<div class="layim-chat-user">
-						<img src="https://nim.nosdn.127.net/MTY2ODYxMDY=/bmltYV8xMjM1NTE3MTIwNF8xNTYyNTcxNTA1NjI1X2EyNWZmOWExLTAwM2MtNGNmYS1iZmNkLTdmMDJlYmRkNTllYw==?imageView&thumbnail=1500x850">
-						<cite>
-							<i>2019-07-09 22:43:10
-							</i>纸飞机
-						</cite>
-					</div>
-					<div class="layim-chat-text">
-						你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。
-					</div>
-				</li>
-        <!--右边文字泡图片-->
-				<li class="layim-chat-mine Isay">
-					<div class="layim-chat-user">
-						<img src="https://nim.nosdn.127.net/MTY2ODYxMDY=/bmltYV8xMjM1NTE3MTIwNF8xNTYyNTcxNTA1NjI1X2EyNWZmOWExLTAwM2MtNGNmYS1iZmNkLTdmMDJlYmRkNTllYw==?imageView&thumbnail=1500x850">
-						<cite>
-							<i>2019-07-09 22:43:10
-							</i>纸飞机
-						</cite>
-					</div>
-					<div class="layim-chat-text">
-						你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。
-					</div>
-				</li>
-
-        <li>
-        <div class="layim-chat-user">
-          <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">
-          <cite>小闲<i>2019-07-09 21:55:34</i></cite>
-          </div>
-          <div class="layim-chat-text guestSay">
-            <img src="https://nim.nosdn.127.net/MTY2ODYxMDY=/bmltYV8xMjM1NTE3MTIwNF8xNTYyNTcxNTA1NjI1X2EyNWZmOWExLTAwM2MtNGNmYS1iZmNkLTdmMDJlYmRkNTllYw==?imageView&thumbnail=1500x850" />
-          </div>
-        </li>
-
-        <li>
-        <div class="layim-chat-user ">
-          <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">
-          <cite>小闲<i>2019-07-09 21:55:34</i></cite>
-          </div>
-          <div class="layim-chat-text guestSay">
-            你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。
-          </div>
-        </li>
-      </div>
-    </div>
-  </div>
-  <!--输入窗口-->
-  <div class="layui-col-md12">
-    <div class="layui-card session-input-box">
-      <div class="layui-card-body input-area">
-        <textarea id="input-area" style="display: none;"></textarea>
-        <button class="layui-btn layui-btn-primary complement-input-line"></button>
-        <button class="layui-btn layui-btn-primary message-sent" id= "message-sent" >发送S</button>
-      </div>
-    </div>
-  </div>
-  </div>
 
 
-  <!--辅助区-->
-  <div class="layui-col-md3 session-help">
-    <div class="layui-card">
-      <div class="layui-card-body session-help-body">
-      <div class="layui-tab layui-tab-card">
-        <ul class="layui-tab-title">
-          <li class="layui-this">用户信息</li>
-          <li>知识库</li>
-          <li>更多</li>
-        </ul>
-        <div class="layui-tab-content help-content">
-          <!--用户信息-->
-          <div class="layui-tab-item layui-show">
-            <form class="layui-form">
-						<fieldset class="layui-elem-field layui-field-title site-title">
-							<legend><a name="collapse"><i class="layui-icon layui-icon-friends"></i>用户信息</a></legend>
-						</fieldset>
-							<div class="layui-form-item">
-								<label class="layui-form-label">姓名</label>
-								<div class="layui-input-block">
-									<input type="text" name="username" placeholder="请输入" autocomplete="off" class="layui-input" value="Guest7748543404" >
-								</div>
-							</div>
-							<div class="layui-form-item">
-								<label class="layui-form-label">手机</label>
-								<div class="layui-input-block">
-									<input type="text" name="phone" placeholder="请输入" autocomplete="off" class="layui-input">
-								</div>
-							</div>
-							<div class="layui-form-item">
-								<label class="layui-form-label">邮箱</label>
-								<div class="layui-input-block">
-									<input type="text" name="email" placeholder="请输入" autocomplete="off" class="layui-input">
-								</div>
-							</div>
-							<div class="layui-form-item">
-								<label class="layui-form-label">地址</label>
-								<div class="layui-input-block">
-									<input type="text" name="addr" placeholder="请输入" autocomplete="off" class="layui-input">
-								</div>
-							</div>
-							<div class="layui-form-item">
-								<label class="layui-form-label">标签</label>
-								<div class="layui-input-block">
-									 <span class="layui-badge layui-bg-blue layui-circle"><i class="layui-icon layui-icon-add-1"></i></span>
-								</div>
-							</div>
-							<div class="layui-form-item">
-								<label class="layui-form-label">访客备注</label>
-								<div class="layui-input-block">
-									<input type="text" name="note" placeholder="请输入" autocomplete="off" class="layui-input">
-								</div>
-							</div>
-						<fieldset class="layui-elem-field layui-field-title site-title">
-							<legend><a name="collapse"><i class="layui-icon layui-icon-reply-fill"></i>访问信息</a></legend>
-						</fieldset>
-						<div class="layui-form-item">
-							<label class="layui-form-label">
-								来源渠道
-							</label>
-							<div class="layui-input-block">
-								<label class="layui-form-label">
-                  直接访问
-								</label>
-							</div>
-						</div>
-						<div class="layui-form-item">
-							<label class="layui-form-label">
-								IP地址
-							</label>
-							<div class="layui-input-block">
-								<label class="layui-form-label">
-                  广东 广州
-								</label>
-							</div>
-						</div>
-						<div class="layui-form-item">
-							<label class="layui-form-label">
-								来源终端
-							</label>
-							<div class="layui-input-block">
-								<label class="layui-elip layui-form-label">
-                    <i class="layui-icon-cellphone layui-icon"></i>Windows 7-Chrome
-								</label>
-							</div>
-						</div>
-						<div class="layui-form-item">
-							<label class="layui-form-label">
-								会话页
-							</label>
-							<div class="layui-input-block">
-								<label class="layui-elip layui-form-label">
-											<a href="http://hello.com" style="color:#01AAED">未来知页面</a>
-								</label>
-							</div>
-						</div>
-						<div class="layui-form-item">
-							<label class="layui-form-label">
-								行为轨迹
-							</label>
-							<div class="layui-input-block">
-								<label class="layui-elip layui-form-label">
-                      暂无记录
-								</label>
-							</div>
-						</div>
-						<div class="layui-form-item">
-							<label class="layui-form-label">
-								工单 
-							</label>
-							<div class="layui-input-block">
-								<label class="layui-elip layui-form-label">
-                    <span style="color:#01AAED"><i class="layui-icon-add-1 layui-icon"></i>新建工单</span>
-								</label>
-							</div>
-						</div>
-						<fieldset class="layui-elem-field layui-field-title site-title">
-							<legend><a name="collapse"><i class="layui-icon layui-icon-note"></i>服务小记</a></legend>
-						</fieldset>
-						<div class="layui-form-item">
-							<label class="layui-form-label">
-								问题状态
-							</label>
-							<div class="layui-input-block">
-								<select name="quiz">
-										<option value="0">已解决</option>
-										<option value="1">未解决</option>
-										<option value="2">解决中</option>
-								</select>
-							</div>
-						</div>
-						<div class="layui-form-item">
-							<label class="layui-form-label">
-								咨询分类
-							</label>
-							<div class="layui-input-block">
-								<select name="quiz">
-										<option value="0">未分类</option>
-										<option value="1">无效会话</option>
-								</select>
-							</div>
-						</div>
-						<div class="layui-form-item">
-							<textarea placeholder="请输入内容" class="layui-textarea" name="service_note"></textarea>
-						</div>
-						<fieldset class="layui-elem-field layui-field-title site-title">
-								<legend><a name="collapse"><i class="layui-icon layui-icon-edit"></i>服务记录</a></legend>
-						</fieldset>
-						<div class="layui-collapse" lay-accordion lay-filter="serving_log">
-							<div class="layui-colla-item">
-							<h2 class="layui-colla-title">昨天21:00 <i class="layui-icon layui-icon-cellphone"></i><span style="float:right">未分类</span></h2>
-								<div class="layui-colla-content layui-show">内容区域</div>
-							</div>
-							<div class="layui-colla-item">
-							<h2 class="layui-colla-title">昨天21:30 <i class="layui-icon layui-icon-cellphone"></i><span style="float:right">无效会话</span></h2>
-								<div class="layui-colla-content layui-show">内容区域</div>
-							</div>
-						</div>
-            </form>
-          </div>
-          <div class="layui-tab-item">2</div>
-          <div class="layui-tab-item">3</div>
+        <!--会话窗口-->
+        <div class="layui-col-md6 layui-row session-area">
+            <div class="layui-col-md12">
+                <div class="layui-card session-log">
+                    <div class="layui-card-header">
+                        Guest7748543404(输入中...)
+                        <span class="session-top-center">
+                        </span>
+                        <span class="session-top-right">
+                            转接
+                            结束服务
+                        </span></div>
+                        <div class="layui-card-body chat-log" id="chat-log">
+                            <!--中间提示-->
+                            <!--<h3>这是中间提示</h3>-->
+                            <!--<1!--历史消息--1>-->
+                            <!--<div class="other-way-login">-->
+                            <!--    <span class="line"></span>-->  
+                            <!--    <span class="txt">以上是历史消息</span>-->  
+                            <!--    <span class="line"></span>-->  
+                            <!--</div>-->
+                            <!--左边文字泡图片-->
+                            <!--<li>-->
+                            <!--    <div class="layim-chat-user">-->
+                            <!--        <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">-->
+                            <!--        <cite>小闲<i>2019-07-09 21:55:34</i></cite>-->
+                            <!--    </div>-->
+                            <!--    <div class="layim-chat-text guestSay">-->
+                            <!--        <img src="https://nim.nosdn.127.net/MTY2ODYxMDY=/bmltYV8xMjM1NTE3MTIwNF8xNTYyNTcxNTA1NjI1X2EyNWZmOWExLTAwM2MtNGNmYS1iZmNkLTdmMDJlYmRkNTllYw==?imageView&thumbnail=1500x850" />-->
+                            <!--    </div>-->
+                            <!--</li>-->
+                            <!--<1!--左边文字泡文字--1>-->
+                            <!--<li>-->
+                            <!--    <div class="layim-chat-user">-->
+                            <!--        <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">-->
+                            <!--        <cite>小闲<i>2019-07-09 21:55:34</i></cite>-->
+                            <!--    </div>-->
+                            <!--    <div class="layim-chat-text guestSay">-->
+                            <!--        你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。-->
+                            <!--    </div>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                            <!--    <div class="layim-chat-user">-->
+                            <!--        <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">-->
+                            <!--        <cite>小闲<i>2019-07-09 21:55:34</i></cite>-->
+                            <!--    </div>-->
+                            <!--    <div class="layim-chat-text guestSay">-->
+                            <!--        你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。-->
+                            <!--    </div>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                            <!--    <div class="layim-chat-user">-->
+                            <!--        <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">-->
+                            <!--        <cite>小闲<i>2019-07-09 21:55:34</i></cite>-->
+                            <!--    </div>-->
+                            <!--    <div class="layim-chat-text guestSay">-->
+                            <!--        你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。-->
+                            <!--    </div>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                            <!--    <div class="layim-chat-user">-->
+                            <!--        <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">-->
+                            <!--        <cite>小闲<i>2019-07-09 21:55:34</i></cite>-->
+                            <!--    </div>-->
+                            <!--    <div class="layim-chat-text guestSay">-->
+                            <!--        你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。-->
+                            <!--    </div>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                            <!--    <div class="layim-chat-user">-->
+                            <!--        <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">-->
+                            <!--        <cite>小闲<i>2019-07-09 21:55:34</i></cite>-->
+                            <!--    </div>-->
+                            <!--    <div class="layim-chat-text guestSay">-->
+                            <!--        你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。-->
+                            <!--    </div>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                            <!--    <div class="layim-chat-user">-->
+                            <!--        <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">-->
+                            <!--        <cite>小闲<i>2019-07-09 21:55:34</i></cite>-->
+                            <!--    </div>-->
+                            <!--    <div class="layim-chat-text guestSay">-->
+                            <!--        你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。-->
+                            <!--    </div>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                            <!--    <div class="layim-chat-user">-->
+                            <!--        <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">-->
+                            <!--        <cite>小闲<i>2019-07-09 21:55:34</i></cite>-->
+                            <!--    </div>-->
+                            <!--    <div class="layim-chat-text guestSay">-->
+                            <!--        你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。-->
+                            <!--    </div>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                            <!--    <div class="layim-chat-user">-->
+                            <!--        <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">-->
+                            <!--        <cite>小闲<i>2019-07-09 21:55:34</i></cite>-->
+                            <!--    </div>-->
+                            <!--    <div class="layim-chat-text guestSay">-->
+                            <!--        你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。-->
+                            <!--    </div>-->
+                            <!--</li>-->
+                            <!--<li>-->
+                            <!--    <div class="layim-chat-user">-->
+                            <!--        <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg">-->
+                            <!--        <cite>小闲<i>2019-07-09 21:55:34</i></cite>-->
+                            <!--    </div>-->
+                            <!--    <div class="layim-chat-text guestSay">-->
+                            <!--        你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。-->
+                            <!--    </div>-->
+                            <!--</li>-->
+                            <!--<1!--右边文字泡文字--1>-->
+                            <!--<li class="layim-chat-mine Isay">-->
+                            <!--    <div class="layim-chat-user">-->
+                            <!--        <img src="https://nim.nosdn.127.net/MTY2ODYxMDY=/bmltYV8xMjM1NTE3MTIwNF8xNTYyNTcxNTA1NjI1X2EyNWZmOWExLTAwM2MtNGNmYS1iZmNkLTdmMDJlYmRkNTllYw==?imageView&thumbnail=1500x850">-->
+                            <!--        <cite>-->
+                            <!--            <i>2019-07-09 22:43:10-->
+                            <!--            </i>纸飞机-->
+                            <!--        </cite>-->
+                            <!--    </div>-->
+                            <!--    <div class="layim-chat-text">-->
+                            <!--        你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。-->
+                            <!--    </div>-->
+                            <!--</li>-->
+                            <!--右边文字泡图片-->
+                            <!-- <li class="layim-chat-mine Isay"> -->
+                            <!--     <div class="layim-chat-user"> -->
+                            <!--         <img src="https://nim.nosdn.127.net/MTY2ODYxMDY=/bmltYV8xMjM1NTE3MTIwNF8xNTYyNTcxNTA1NjI1X2EyNWZmOWExLTAwM2MtNGNmYS1iZmNkLTdmMDJlYmRkNTllYw==?imageView&thumbnail=1500x850"> -->
+                            <!--         <cite> -->
+                            <!--             <i>2019-07-09 22:43:10 -->
+                            <!--             </i>纸飞机 -->
+                            <!--         </cite> -->
+                            <!--     </div> -->
+                            <!--     <div class="layim-chat-text"> -->
+                            <!--         你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。 -->
+                            <!--     </div> -->
+                            <!-- </li> -->
+
+                            <!-- <li> -->
+                            <!--     <div class="layim-chat-user"> -->
+                            <!--         <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg"> -->
+                            <!--         <cite>小闲<i>2019-07-09 21:55:34</i></cite> -->
+                            <!--     </div> -->
+                            <!--     <div class="layim-chat-text guestSay"> -->
+                            <!--         <img src="https://nim.nosdn.127.net/MTY2ODYxMDY=/bmltYV8xMjM1NTE3MTIwNF8xNTYyNTcxNTA1NjI1X2EyNWZmOWExLTAwM2MtNGNmYS1iZmNkLTdmMDJlYmRkNTllYw==?imageView&thumbnail=1500x850" /> -->
+                            <!--     </div> -->
+                            <!-- </li> -->
+
+                            <!-- <li> -->
+                            <!--     <div class="layim-chat-user "> -->
+                            <!--         <img src="//tva3.sinaimg.cn/crop.0.0.180.180.180/7f5f6861jw1e8qgp5bmzyj2050050aa8.jpg"> -->
+                            <!--         <cite>小闲<i>2019-07-09 21:55:34</i></cite> -->
+                            <!--     </div> -->
+                            <!--     <div class="layim-chat-text guestSay"> -->
+                            <!--         你要和我说话？你真的要和我说话？你确定自己想说吗？你一定非说不可吗？那你说吧，这是自动回复。 -->
+                            <!--     </div> -->
+                            <!-- </li> -->
+                        </div>
+                </div>
+            </div>
+            <!--输入窗口-->
+            <div class="layui-col-md12">
+                <div class="layui-card session-input-box">
+                    <div class="layui-card-body input-area">
+                        <textarea id="input-area" style="display: none;"></textarea>
+                        <button class="layui-btn layui-btn-primary complement-input-line"></button>
+                        <button class="layui-btn layui-btn-primary message-sent" id= "message-sent" >发送S</button>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div> 
-      </div>
+
+
+        <!--辅助区-->
+        <div class="layui-col-md3 session-help">
+            <div class="layui-card">
+                <div class="layui-card-body session-help-body">
+                    <div class="layui-tab layui-tab-card">
+                        <ul class="layui-tab-title">
+                            <li class="layui-this">用户信息</li>
+                            <li>知识库</li>
+                            <li>更多</li>
+                        </ul>
+                        <div class="layui-tab-content help-content">
+                            <!--用户信息-->
+                            <div class="layui-tab-item layui-show">
+                                <form class="layui-form">
+                                    <fieldset class="layui-elem-field layui-field-title site-title">
+                                        <legend><a name="collapse"><i class="layui-icon layui-icon-friends"></i>用户信息</a></legend>
+                                    </fieldset>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">姓名</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="username" placeholder="请输入" autocomplete="off" class="layui-input" value="Guest7748543404" >
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">手机</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="phone" placeholder="请输入" autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">邮箱</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="email" placeholder="请输入" autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">地址</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="addr" placeholder="请输入" autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">标签</label>
+                                        <div class="layui-input-block">
+                                            <span class="layui-badge layui-bg-blue layui-circle"><i class="layui-icon layui-icon-add-1"></i></span>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">访客备注</label>
+                                        <div class="layui-input-block">
+                                            <input type="text" name="note" placeholder="请输入" autocomplete="off" class="layui-input">
+                                        </div>
+                                    </div>
+                                    <fieldset class="layui-elem-field layui-field-title site-title">
+                                        <legend><a name="collapse"><i class="layui-icon layui-icon-reply-fill"></i>访问信息</a></legend>
+                                    </fieldset>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">
+                                            来源渠道
+                                        </label>
+                                        <div class="layui-input-block">
+                                            <label class="layui-form-label">
+                                                直接访问
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">
+                                            IP地址
+                                        </label>
+                                        <div class="layui-input-block">
+                                            <label class="layui-form-label">
+                                                广东 广州
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">
+                                            来源终端
+                                        </label>
+                                        <div class="layui-input-block">
+                                            <label class="layui-elip layui-form-label">
+                                                <i class="layui-icon-cellphone layui-icon"></i>Windows 7-Chrome
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">
+                                            会话页
+                                        </label>
+                                        <div class="layui-input-block">
+                                            <label class="layui-elip layui-form-label">
+                                                <a href="http://hello.com" style="color:#01AAED">未来知页面</a>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">
+                                            行为轨迹
+                                        </label>
+                                        <div class="layui-input-block">
+                                            <label class="layui-elip layui-form-label">
+                                                暂无记录
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">
+                                            工单 
+                                        </label>
+                                        <div class="layui-input-block">
+                                            <label class="layui-elip layui-form-label">
+                                                <span style="color:#01AAED"><i class="layui-icon-add-1 layui-icon"></i>新建工单</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <fieldset class="layui-elem-field layui-field-title site-title">
+                                        <legend><a name="collapse"><i class="layui-icon layui-icon-note"></i>服务小记</a></legend>
+                                    </fieldset>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">
+                                            问题状态
+                                        </label>
+                                        <div class="layui-input-block">
+                                            <select name="quiz">
+                                                <option value="0">已解决</option>
+                                                <option value="1">未解决</option>
+                                                <option value="2">解决中</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label">
+                                            咨询分类
+                                        </label>
+                                        <div class="layui-input-block">
+                                            <select name="quiz">
+                                                <option value="0">未分类</option>
+                                                <option value="1">无效会话</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="layui-form-item">
+                                        <textarea placeholder="请输入内容" class="layui-textarea" name="service_note"></textarea>
+                                    </div>
+                                    <fieldset class="layui-elem-field layui-field-title site-title">
+                                        <legend><a name="collapse"><i class="layui-icon layui-icon-edit"></i>服务记录</a></legend>
+                                    </fieldset>
+                                    <div class="layui-collapse" lay-accordion lay-filter="serving_log">
+                                        <div class="layui-colla-item">
+                                            <h2 class="layui-colla-title">昨天21:00 <i class="layui-icon layui-icon-cellphone"></i><span style="float:right">未分类</span></h2>
+                                            <div class="layui-colla-content layui-show">内容区域</div>
+                                        </div>
+                                        <div class="layui-colla-item">
+                                            <h2 class="layui-colla-title">昨天21:30 <i class="layui-icon layui-icon-cellphone"></i><span style="float:right">无效会话</span></h2>
+                                            <div class="layui-colla-content layui-show">内容区域</div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="layui-tab-item">2</div>
+                            <div class="layui-tab-item">3</div>
+                        </div>
+                    </div> 
+                </div>
+            </div>
+        </div>
+
     </div>
-  </div>
 
-</div>
-
-<script>
-  layui.use('chat', layui.factory('chat'));
-</script>
+    <script>
+        layui.use('chat', layui.factory('chat'));
+    </script>

@@ -37,10 +37,38 @@
       }
     });
     post.sent({
+      from: '/local/chat/index/input',
       data: {content: '你是入口文件吗？' },
       to: '/local/chat' // 接收人  
     });
-        
+    //客户列表区块消息接收地址并处理
+    post.inbox({
+        from: '/local/chat/index/message/onlineList',
+        onMessage: function(e) {
+            var $ = layui.jquery,
+                element = layui.element,
+                microtime = new Date(parseInt(e.microtime * 1000)),
+                data = e.data;
+            $('.guest-online-list').after(
+                '<div class="layui-colla-content layui-show">'
+                +    '<span class="chat-guest">'
+                +    data.guest_name 
+                +    '</span>'
+                +    '<span class="layui-badge layui-bg-green chat-new-message">new</span'
+                +    '<span>'
+                +    '</span>'
+                +    '<br>'
+                +    '<span class="chat-message">'
+                +        data.content
+                +    '</span>'
+                +    '<span class="chat-new-message-date">'
+                +     microtime.getHours() + ':' + microtime.getMinutes() + ':' + microtime.getSeconds()
+                +    '</span>'
+                +'</div>'
+            ); 
+            $('#online-num').text($('.guest-online-list').siblings().length);
+        }
+    });
     form.render(); 
     layedit.sync(index); 
     layer.ready(function(){

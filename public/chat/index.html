@@ -37,16 +37,25 @@
           JSON.stringify({ 
             from: '/local/chat',
             to: '/service/login',
-            time: (new Date().valueOf()),
+            microtime: (new Date().valueOf()),
             data: {'access-token': layui.data('layuiAdmin')['access-token']} 
           })
         );
       }) 
+      //接收socket消息 
+        socket.addEventListener('message', function(event) {
+            var receiveData = JSON.parse(event.data);
+            // 消息转发给指定页面
+            if (receiveData.type === undefined) {
+                var post = layui.po;st
+                post.sent(receiveData);
+            }
+        });
       //接收本地的消息并转发 
       post.inbox({
         from: '/local/chat', 
         onMessage: function(e) {
-          console.log('这里是入口文本，现收到来自' +e.from+ '的消息,内容：'+ JSON.stringify(e.data)); 
+          //console.log('这里是入口文本，现收到来自' +e.from+ '的消息,内容：'+ JSON.stringify(e.data)); 
         }
       });
     });

@@ -1,9 +1,9 @@
 <?php /**
- * File              : Guest.php
- * @author           : wuchuheng <wuchuheng@163.com>
- * Date              : 20.07.2019
- * Last Modified Date: 20.07.2019
- * Last Modified By  : wuchuheng <wuchuheng@163.com>
+* File              : Guest.php
+* @author           : wuchuheng <wuchuheng@163.com>
+* Date              : 20.07.2019
+* Last Modified Date: 20.07.2019
+* Last Modified By  : wuchuheng <wuchuheng@163.com>
  */
 /**
  * 客户业务基类 
@@ -72,7 +72,6 @@ class Guest extends Base
                 'time'      => microtime(true)
             )));
         } else {
-            $uid = $Redis->lPop('chat_waiting_group');
             //缓存用户设备指纹指向客服uid，用于下次连接优先匹配上次给他服务的工作人员
             $Redis->select(3);
             $Redis->hSet('guest_fingerprints', $guest_data['fingerprint'], $uid);
@@ -106,25 +105,32 @@ class Guest extends Base
         $uid = $Redis->lPop('chat_waiting_group');
         Gateway::joinGroup($client_id, $uid);  
         //通知客服人员有新客服
+        $Redis->select(1);
+        $guest_name = $Redis->hGet($client_id, 'name');
         Gateway::sendToUid($uid, json_encode([
             'from'  => '/service/connect/guest/' . $client_id, 
             'to'    => '/local/chat/index/message/onlineList',
-            'data'  => ['这是有新客的消息，先标明下'],
-            'time'  => time()
+            'data'  =>  [
+                'speaker'    => 'me',
+                'guest_name' => $guest_name,
+                'content'    => '您好，有什么可以帮助吗？'
+            ],
+            'microtime'  => microtime(true)
         ]));
         // 给用户发送消息
         $chat_client_ids = Gateway::getClientIdByUid($uid);
-        $chat_client_id = reset($chat_client_ids);
-        $db0_key = $Redis->hGet('chat_connect', $chat_client_id);
+        $chat_client_id  = reset($chat_client_ids);
+        $Redis->select(3);
+        $db0_key         = $Redis->hGet('chat_connect', $chat_client_id);
         $Redis->select(0);
         $server_member_info = $Redis->hGetAll($db0_key);
         Gateway::sendToClient($client_id, json_encode([
             'type' => 'welcome',
             'data' => ['name' => $server_member_info['nick_name'], 
-                'content' => '很高兴为你服务'
-            ],
-            'microtime' => microtime(true)
-        ]));
+            'content' => '很高兴为你服务'
+        ],
+        'microtime' => microtime(true)
+    ]));
         // 缓存这个客户连接指向给它服务的工作人员uid
         $Redis->select(1);
         $Redis->hSet($client_id, 'uid', $uid);

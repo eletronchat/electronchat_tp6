@@ -6,6 +6,7 @@
    }
    .chat-new-message{
      float:right;
+     border-radius: 18px;
    }
    /**隐藏滚动条**/
   .session-help,.contacts-box{
