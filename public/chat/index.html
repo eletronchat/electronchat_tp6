@@ -47,7 +47,7 @@
             var receiveData = JSON.parse(event.data);
             // 消息转发给指定页面
             if (receiveData.type === undefined) {
-                var post = layui.po;st
+                var post = layui.post;
                 post.sent(receiveData);
             }
         });

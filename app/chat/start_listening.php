@@ -18,19 +18,15 @@ $worker->name = 'listening message progress'; //消息监听进程
 $worker->count  = 1;
 $worker->onWorkerStart = function($worker)
 {
-     define('CAHCE_MEMBER_DB', 0); //工作成员缓存数据库 
-     define('CAHCE_GUEST_CONNECT_DB', 1); //客户人员缓存数据库
-     define('CAHCE_CHAT_LOG_DB', 2);   //客户聊天缓存数据库 
-     define('CAHCE_INTERATION_DB', 3); //各种数据交互缓存数据库
      //配置
-     global $config; 
-		 $config = [
-       'redis' => [
-           'expire' => 60*60*24,
-           'host'   => '127.0.0.1',
-           'port'   => 6379,
-				]
-		];
+    global $config; 
+    $config = [
+        'redis' => [
+            'expire' => 60*60*24,
+            'host'   => '127.0.0.1',
+            'port'   => 6379,
+        ]
+    ];
      global $RedisMessage;
      $RedisMessage = new \app\chat\service\RedisMessage();
      global $db;
@@ -38,6 +34,12 @@ $worker->onWorkerStart = function($worker)
      global $Redis;
      $Redis = Base::getRedisInstance();
      $Redis->setOption(Redis::OPT_READ_TIMEOUT, -1);
+     //初始化缓存
+     $Redis->select(0); $Redis->flushdb();
+     $Redis->select(1); $Redis->flushdb();
+     $Redis->select(2); $Redis->flushdb();
+     $Redis->select(3); $Redis->flushdb();
+     //监听订阅
      $Redis->subscribe(['listening'], function($instance, $channelName, $message) {
          global $RedisMessage; 
          $message = json_decode($message, true);
