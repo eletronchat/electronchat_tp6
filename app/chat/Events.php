@@ -42,13 +42,18 @@ class Events
       switch(parse_url($data['server']['REQUEST_URI'])['path']) {
            //客户连接 
            case '/service/guest/login':
-             //缓存客户信息
-             Guest::cacheGuestData($client_id, $data);
              if(Guest::isServerOnline()) {
+                 //缓存客户信息
+                 Guest::cacheGuestData($client_id, $data);
                 //将客户拉入空闲座席
                 Guest::welcome($client_id);
              } else {
-                 // 客服不在线处理 
+                // 客服不在线处理 
+                Guest::cacheToMissingSet($client_id, $data);
+                Gateway::sendToClient($client_id, json_encode(array(
+                    'type' => 'miss',
+                    'time' => microtime(true)
+                ))); 
              }
            break;
 

@@ -60,22 +60,24 @@ class Guest extends Base
         );
         //数据的第三方收集和持久化费时，就交给监听进程处理而不阻塞当前连接。
         $Redis->publish('listening',json_encode($message));
+    }
+
+
+    /**
+    * 没有客服当值，缓存数据
+    * 
+    * @client_id    客户连接id
+    * @data         客户信息
+    */
+    public static function cacheToMissingSet(string $client_id, array $data)
+    {
         //客服不在线，进入错过队列
+        $Redis = parent::getRedisInstance();
         $Redis->select(3);
-        if($Redis->scard('chat_servers_online') === 0 ) {
-            Gateway::sendToClient($client_id, json_encode(array(
-                'type'   => 'miss',
-                'time'   => microtime(true)
-            ))); 
             $Redis->lPush('missing_guest', json_encode(array(
                 'client_id' => $client_id,
                 'time'      => microtime(true)
             )));
-        } else {
-            //缓存用户设备指纹指向客服uid，用于下次连接优先匹配上次给他服务的工作人员
-            $Redis->select(3);
-            $Redis->hSet('guest_fingerprints', $guest_data['fingerprint'], $uid);
-        }
     }
 
 
