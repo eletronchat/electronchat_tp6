@@ -43,10 +43,8 @@ class Events
            //客户连接 
            case '/service/guest/login':
              if(Guest::isServerOnline()) {
-                 //缓存客户信息
-                 Guest::cacheGuestData($client_id, $data);
-                //将客户拉入空闲座席
-                Guest::welcome($client_id);
+                 Guest::cacheGuestData($client_id, $data); //缓存客户信息
+                Guest::welcome($client_id); //将客户拉入空闲座席
              } else {
                 // 客服不在线处理 
                 Guest::cacheToMissingSet($client_id, $data);
