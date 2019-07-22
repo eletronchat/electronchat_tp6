@@ -57,13 +57,12 @@ class RedisMessage extends Base
         global $config;
         $Redis = new \Redis();
         $Redis->connect($config['redis']['host'], $config['redis']['port']);
-        $Redis->select(client_id3);
+        $Redis->select(1);
         $expire = $config['redis']['expire'];
         $Redis->hMSet($guest_data['fingerprint'], $guest_data); 
         $Redis->expire($guest_data['client_id'], $expire);
         // 持久化
         unset($guest_data['client_id']);
-        $guest_data['name'] = isset($guest_data['name']) && $guest_data['name'] !== null ? $guest_data['name'] : 'Guest_' . time();
         if ($has_guest_data) {
             $update_id = $db->update('think_guest')->cols($guest_data)->where('fingerprint="' . $guest_data['fingerprint'] . "\"")->query();
         } else {

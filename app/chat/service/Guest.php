@@ -45,20 +45,27 @@ class Guest extends Base
      */
     public static function cacheGuestData(string $client_id, array $data) 
     {
-        $Redis = parent::getRedisInstance();
+        //先缓存现在就有的数据
+        $guest_data['fingerprint'] = $data['get']['fingerprint'];
         $guest_data['ip'] =  $_SERVER['REMOTE_ADDR'];
-        $guest_data['fingerprint'] = isset($data['get']['fingerprint']) ? $data['get']['fingerprint'] : '';
         $guest_data['current_url'] = isset($data['server']['HTTP_ORIGIN']) && isset($data['server']['REQUEST_URI'])? $data['server']['HTTP_ORIGIN'] . $data['server']['REQUEST_URI'] : '';
         $guest_data['device']      = array_key_exists('HTTP_USER_AGENT', $data['server']) ? parent::getClientIOS($data['server']['HTTP_USER_AGENT']) : '';
         $guest_data['client_id']   = $client_id;
-        $guest_data['create_time'] = time();
+        $Redis = parent::getRedisInstance();
+        $Redis->select(1);
+        if (!$Redis->exists($data['get']['fingerprint'])) {
+            //新客户缓存
+            $guest_data['create_time'] = time();
+            $guest_data['name'] =  'Guest_' . time();
+            $Redis->hMSet($guest_data['fingerprint'], $guest_data);
+        }
+        //收集第3方接口数据和数据持久化交给监听进程来做
         $message = array(
             "from"   => "/service/connect/guest",
             "to"     => "/service/listening/initGuest",
-            "method" => "POST",
+            "method" => "PUT",
             "data"   => $guest_data,
         );
-        //数据的第三方收集和持久化费时，就交给监听进程处理而不阻塞当前连接。
         $Redis->publish('listening',json_encode($message));
         //客服不在线，进入错过队列
         $Redis->select(3);
@@ -73,8 +80,8 @@ class Guest extends Base
             )));
         } else {
             //缓存用户设备指纹指向客服uid，用于下次连接优先匹配上次给他服务的工作人员
-            $Redis->select(3);
-            $Redis->hSet('guest_fingerprints', $guest_data['fingerprint'], $uid);
+            /* $Redis->select(3); */
+            /* $Redis->hSet('guest_fingerprints', $guest_data['fingerprint'], $uid); */
         }
     }
 
@@ -94,7 +101,6 @@ class Guest extends Base
 
     /**
      *  招待客户
-     *
      *
      */
     public static function welcome(string $client_id) 
