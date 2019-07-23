@@ -78,12 +78,18 @@ class Guest extends Base
     */
     public static function cacheToMissingSet(string $client_id, array $data)
     {
+        $guest_data['fingerprint'] = $data['get']['fingerprint'];
+        $guest_data['ip'] =  $_SERVER['REMOTE_ADDR'];
+        $guest_data['current_url'] = isset($data['server']['HTTP_ORIGIN']) && isset($data['server']['REQUEST_URI'])? $data['server']['HTTP_ORIGIN'] . $data['server']['REQUEST_URI'] : '';
+        $guest_data['device']      = array_key_exists('HTTP_USER_AGENT', $data['server']) ? parent::getClientIOS($data['server']['HTTP_USER_AGENT']) : '';
+        $guest_data['client_id']   = $client_id;
         //客服不在线，进入错过队列
         $Redis = parent::getRedisInstance();
         $Redis->select(3);
             $Redis->lPush('missing_guest', json_encode(array(
                 'client_id' => $client_id,
-                'time'      => microtime(true)
+                'time'      => microtime(true),
+                'data'      => json_encode($guest_data)
             )));
     }
 
@@ -132,6 +138,11 @@ class Guest extends Base
         $db0_key         = $Redis->hGet('chat_connect', $chat_client_id);
         $Redis->select(0);
         $server_member_info = $Redis->hGetAll($db0_key);
+        $guest_data['fingerprint'] = $data['get']['fingerprint'];
+        $guest_data['ip'] =  $_SERVER['REMOTE_ADDR'];
+        $guest_data['current_url'] = isset($data['server']['HTTP_ORIGIN']) && isset($data['server']['REQUEST_URI'])? $data['server']['HTTP_ORIGIN'] . $data['server']['REQUEST_URI'] : '';
+        $guest_data['device']      = array_key_exists('HTTP_USER_AGENT', $data['server']) ? parent::getClientIOS($data['server']['HTTP_USER_AGENT']) : '';
+        $guest_data['client_id']   = $client_id;
         Gateway::sendToClient($client_id, json_encode([
             'type' => 'welcome',
             'data' => ['name' => $server_member_info['nick_name'], 
