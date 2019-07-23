@@ -52,7 +52,7 @@ class Guest extends Base
         $guest_data['device']      = array_key_exists('HTTP_USER_AGENT', $data['server']) ? parent::getClientIOS($data['server']['HTTP_USER_AGENT']) : '';
         $guest_data['client_id']   = $client_id;
         $Redis = parent::getRedisInstance();
-        $Redis->select(1);
+        $Redis->select(3);
         if (!$Redis->exists($data['get']['fingerprint'])) {
             //新客户缓存
             $guest_data['create_time'] = time();
@@ -66,7 +66,7 @@ class Guest extends Base
             "method" => "PUT",
             "data"   => $guest_data,
         );
-        $Redis->publish('listening',json_encode($message));
+        //$Redis->publish('listening',json_encode($message));
     }
 
 
