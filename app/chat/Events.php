@@ -42,7 +42,7 @@ class Events
         switch(parse_url($data['server']['REQUEST_URI'])['path']) {
             //客户连接 
         case '/service/guest/login':
-            Guest::bindUid($client_id, $data);
+            Gateway::bindUid($client_id, $data['get']['fingerprint']);
             if(Guest::isServerOnline()) {
                 Guest::cacheGuestData($client_id, $data); //缓存客户信息
                 Guest::welcome($client_id);                //将客户拉入空闲座席
