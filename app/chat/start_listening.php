@@ -39,6 +39,12 @@ $worker->onWorkerStart = function($worker)
      $Redis->select(1); $Redis->flushdb();
      $Redis->select(2); $Redis->flushdb();
      $Redis->select(3); $Redis->flushdb();
+     //缓存上限20000最近访问的客户资料
+    $guest_data = $db->select('*')->from('think_guest')->orderByDESC(['gid'])->query(); 
+    $Redis->select(1);
+     foreach($guest_data as $guest) {
+        $Redis->hMSet($guest['fingerprint'], $guest);
+     }
      //监听订阅
      $Redis->subscribe(['listening'], function($instance, $channelName, $message) {
          global $RedisMessage; 
