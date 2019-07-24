@@ -27,33 +27,17 @@
 //declare(ticks=1);
 
 use \GatewayWorker\Lib\Gateway;
-use \app\chat\service\{Login, Check, Guest, Chat};
+use \app\chat\service\{Login, Check, Guest, Chat, Connect as ConnectService};
 
-/**
- * 主逻辑
- * 主要是处理 onConnect onMessage onClose 三个方法
- * onConnect 和 onClose 如果不需要可以不用实现并删除
- */
 class Events
 {
     public static function onWebSocketConnect($client_id, $data)
     {
         //根据路由进行连接验证 
         switch(parse_url($data['server']['REQUEST_URI'])['path']) {
-            //客户连接 
-        case '/service/guest/login':
-            Gateway::bindUid($client_id, $data['get']['fingerprint']);
-            if(Guest::isServerOnline()) {
-                Guest::cacheGuestData($client_id, $data); //缓存客户信息
-                Guest::welcome($client_id);                //将客户拉入空闲座席
-            } else {
-                // 客服不在线处理 
-                Guest::cacheToMissingSet($client_id, $data);
-                Gateway::sendToClient($client_id, json_encode(array(
-                    'type' => 'miss',
-                    'time' => microtime(true)
-                ))); 
-            }
+            case '/service/guest/login':
+            // check ...
+            ConnectService::guest($client_id, $data);  //客户连接服务
             break;
 
             //控制台连接
