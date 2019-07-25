@@ -39,7 +39,7 @@ class Base
     /**
      * 获取数据库连接实例对象
      *
-     *
+     * return   redis连接对象
      */
     protected static function getDbInstance() : object
     {
@@ -55,6 +55,22 @@ class Base
         }
         return self::$Db;
     }
+
+
+    /**
+     *  redis消息发布
+     *
+     * @return 消息发布结果
+     */
+    public static function redisPush(string $channel, string $message) : bool
+    {
+        $Redis = self::getRedisInstance();
+        $result = $Redis->publish($channel, $message);
+        if ($result) 
+            return true;
+        else 
+            return false;
+    } 
 
 }
 

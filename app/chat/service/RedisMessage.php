@@ -18,6 +18,7 @@ class RedisMessage extends Base
      */
     public static function initGuest(array $message)
     {
+        var_dump(1);
         $guest_data = $message['data'];
         global $db;
         $has_guest_data = $db->select('*')

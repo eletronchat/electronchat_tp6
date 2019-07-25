@@ -39,7 +39,6 @@ class Events
             // check ...
             ConnectService::guest($client_id, $data);  //客户连接服务
             break;
-
             //控制台连接
         case '/service/admin/login' :
             // ...

@@ -17,7 +17,8 @@ use \app\chat\logic\Base;
 use \GatewayWorker\Lib\Gateway;
 use \app\chat\model\{
     Redis3 as Redis3Model,
-    Redis1 as Redis1Model
+    Redis1 as Redis1Model,
+    Base   as BaseModel
 };
 
 class Guest extends Base
@@ -46,8 +47,14 @@ class Guest extends Base
             $guest_data['name'] =  'Guest_' . time();
             $guest_data['is_news_guest'] = 1;
             Redis1Model::setHashMoreByKey($data['get']['fingerprint'], $guest_data);
+            $message = array(
+                "from"   => "/service/service/connect/initConnect",
+                "to"     => "/service/listening/initGuest",
+                "method" => "PUT",
+                "data"   => $guest_data,
+            );
+            BaseModel::redisPush('listening', json_encode($message)); // 交给杂务进程，去收集完善用户信息
         }
-    
     }
 
 }
