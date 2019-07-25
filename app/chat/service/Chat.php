@@ -35,7 +35,7 @@ class Chat extends Base
        //释放空闲座席入队
        $Redis->select(3);
        for($i = 0 ; $i < (int)$member_data['receives']; $i++) {
-         $Redis->Lpush('chat_waiting_group',$member_data['uid']);
+         $Redis->Lpush('chat_waiting_queue',$member_data['uid']);
        }
        $Redis->select(0);
        //检测web_chat连接
@@ -133,12 +133,12 @@ class Chat extends Base
     {
       $Redis = parent::getRedisInstance(); 
       $Redis->select(3);
-      $len = $Redis->lLen('chat_waiting_group');
+      $len = $Redis->lLen('chat_waiting_queue');
       if ($len > 0) {
         for ($i = 0; $i < $len; $i++) {
-          $q_uid = $Redis->lPop('chat_waiting_group');
+          $q_uid = $Redis->lPop('chat_waiting_queue');
           if ($q_uid !== $uid) {
-              $q_uid = $Redis->lPush('chat_waiting_group', $q_uid);
+              $q_uid = $Redis->lPush('chat_waiting_queue', $q_uid);
           }
         }
       }

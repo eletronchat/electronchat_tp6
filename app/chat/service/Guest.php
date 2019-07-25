@@ -29,7 +29,7 @@ class Guest extends Base
     {
         $Redis = parent::getRedisInstance(); 
         $Redis->select(3);
-        if($Redis->lLen('chat_waiting_group') > 0) 
+        if($Redis->lLen('chat_waiting_queue') > 0) 
             return true;
         else
             return false;
@@ -116,7 +116,7 @@ class Guest extends Base
         $Redis = parent::getRedisInstance();
         $Redis->select(3); 
         //进入空闲座席
-        $uid = $Redis->lPop('chat_waiting_group');
+        $uid = $Redis->lPop('chat_waiting_queue');
         Gateway::joinGroup($client_id, $uid);  
         //通知客服人员有新客服
         $Redis->select(1);

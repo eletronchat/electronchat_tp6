@@ -60,9 +60,13 @@ class Redis3 extends Base
 
 
     /**
-     *  
-     *
-     *
+     *  获取空闲座席的数量
      *
      */
+    public static function getChatWaitinguQeueLen() : int
+    {
+        $Redis = self::getRedisInstance();
+        $len = $Redis->len('chat_waiting_queue');
+        return $len;
+    }
 }

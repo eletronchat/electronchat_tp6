@@ -20,7 +20,7 @@ use \app\chat\model\{
     Redis1 as Redis1Model,
     Base   as BaseModel
 };
-
+    
 class Guest extends Base
 {
 
@@ -31,7 +31,7 @@ class Guest extends Base
     public static function initConnect(string $client_id, array $data) 
     {
         //用于后期id关闭识别类型
-        Redis3Model:: addGuestConnect($client_id, $data['get']['fingerprint']);
+        Redis3Model::addGuestConnect($client_id, $data['get']['fingerprint']);
         //把客户的所有连接绑定到唯一uid, 用于后期找加客户的全部连接
         Gateway::bindUid($client_id, $data['get']['fingerprint']);
         //缓存数据并打是否新客户标记
@@ -48,8 +48,8 @@ class Guest extends Base
             $guest_data['is_news_guest'] = 1;
             Redis1Model::setHashMoreByKey($data['get']['fingerprint'], $guest_data);
             $message = array(
-                "from"   => "/service/service/connect/initConnect",
                 "to"     => "/service/listening/initGuest",
+                "from"   => "/service/service/connect/initConnect",
                 "method" => "PUT",
                 "data"   => $guest_data,
             );

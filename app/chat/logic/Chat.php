@@ -14,7 +14,7 @@
 namespace app\chat\logic;
 
 use \app\chat\logic\Base;
-use \app\chat\model\{Redis3 as Redis3Model};
+sue \app\chat\model\{Redis3 as Redis3Model};
 
 class Chat extends Base
 {
@@ -31,4 +31,19 @@ class Chat extends Base
         else 
             return false;
     }
+
+
+    /**
+     * 是否还有空闲座席
+     * 
+     */
+    public static function isHasEmptySeat() : bool
+    {
+        $len = Redis3Model::getChataWitingQueueLen();
+        if ($len > 0) 
+            return true;
+        else
+            return false;
+    }
+     
 }
