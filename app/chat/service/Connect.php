@@ -30,13 +30,19 @@ class Connect extends Base
     {
         // 客户连接初始化
         GuestLogic::initConnect($client_id, $data); 
-        // 有客服人员当值，进行接待
-        if (ChatLogic::isServerOnline()) {
-            if (ChatLogic::isHasEmptySeat()) {
-            
-            } 
-        } else {
-        // 没有客服当值,进入
+        $is_server_online  = ChatLogic::isServerOnline();
+        $is_has_empty_seat = ChatLogic::isHasEmptySeat();
+        $is_news_guest     = GuestLogic::isNewsGuest($client_id);
+        // 有客服人员&&有空 = 直接接待
+        if ($is_server_online && $is_has_empty_seat) {
+            ChatLogic::serverConnectGuest($client_id); 
+            //$is_news_guest && chatLogic::welcome($client_id); //双方打个
+        // 有客服人员&&没空 = 排队接待
+        } elseif ($is_server_online && !$is_has_empty_seat) {
+
+        // 没有客服当值,进入错过队列
+        }else {
+
         }
         //if(Guest::isServerOnline()) {
         //    Guest::cacheGuestData($client_id, $data); //缓存客户信息

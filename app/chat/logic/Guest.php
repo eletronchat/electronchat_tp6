@@ -3,7 +3,7 @@
 /**
  *  聊天客户系统逻辑层-客户处理类
  *
- * File              : Base.php
+ * File              :Guest.php
  * @author           : wuchuheng <wuchuheng@163.com>
  * 
  * Date              : 24.07.2019
@@ -56,5 +56,23 @@ class Guest extends Base
             BaseModel::redisPush('listening', json_encode($message)); // 交给杂务进程，去收集完善用户信息
         }
     }
+
+
+    /**
+     * 是否新客户
+     * 
+     * @client_id 客户连接id
+     * @return boolean
+     */
+    public static function isNewsGuest(string $client_id) : bool
+    {
+        $db1_key = Redis3Model::getGuestConnectByKey($client_id);
+        if (Redis1Model::getDataByKey($db1_key, 'is_news_guest')) {
+           return true; 
+        } else {
+            return false;
+        }
+    }
+
 
 }

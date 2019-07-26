@@ -80,4 +80,25 @@ class Redis1 extends Base
             return false;
         }
     }
+
+
+    /**
+     * 获取客户数据
+     * 
+     * @key     键名
+     * @field   字段名
+     * return   客服信息
+     */
+    public static function getDataByKey(string $key, string $field = '') : array
+    {
+        $Redis = self::getRedisInstance();
+        if ($field === '') {
+            return $Redis->hGetAll($key);
+        } elseif ($Redis->hExists($key, $field)) {
+            $val = $Redis->hGet($key, $field);
+            return  [$field => $val];
+        } else {
+            return [];
+        }
+    }
 }

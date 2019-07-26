@@ -63,10 +63,36 @@ class Redis3 extends Base
      *  获取空闲座席的数量
      *
      */
-    public static function getChatWaitinguQeueLen() : int
+    public static function getChatWaitingQueueLen() : int
     {
         $Redis = self::getRedisInstance();
-        $len = $Redis->len('chat_waiting_queue');
+        $len = $Redis->lLen('chat_waitting_queue');
         return $len;
+    }
+
+
+    /**
+     * 获取客户连接哈希表的值
+     *
+     * @client_id   客户连接id
+     * @return      数据库1的key键 
+     */
+    public static function getGuestConnectByKey(string $client_id) : string
+    {
+        $Redis = self::getRedisInstance();
+        $key = $Redis->hGet('guest_connect', $client_id);
+        return $key;
+    }
+
+   /**
+     * 取一个空闲坐席
+     *
+     * @return uid    客服uid
+     */ 
+    public static function popChatWaittingQueue() : string 
+    {
+        $Redis = self::getRedisInstance();
+        $uid = $Redis->lPop('chat_waitting_queue');
+        return $uid;
     }
 }

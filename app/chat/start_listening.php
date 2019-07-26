@@ -51,7 +51,7 @@ $worker->onWorkerStart = function($worker)
          $message = json_decode($message, true);
           switch($message['to']) {
               //初始化用户信息
-              case '/service/service/connect/initConnect' :
+              case '/service/listening/initGuest' :
                   $is_ok = $RedisMessage::initGuest($message);
               break;
           }

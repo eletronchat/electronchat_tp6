@@ -14,7 +14,8 @@
 namespace app\chat\logic;
 
 use \app\chat\logic\Base;
-sue \app\chat\model\{Redis3 as Redis3Model};
+use \GatewayWorker\Lib\Gateway;
+use \app\chat\model\{Redis3 as Redis3Model};
 
 class Chat extends Base
 {
@@ -36,14 +37,29 @@ class Chat extends Base
     /**
      * 是否还有空闲座席
      * 
+     * @return boolean
      */
     public static function isHasEmptySeat() : bool
     {
-        $len = Redis3Model::getChataWitingQueueLen();
+        $len = Redis3Model::getChatWaitingQueueLen();
         if ($len > 0) 
             return true;
         else
             return false;
     }
-     
+
+
+    /**
+     * 客服人员同客户建立起连接
+     *
+     * @client_id 用户连接id
+     */
+    public static function serverConnectGuest(string $client_id) 
+    {
+        $guest_uid  = Gateway::getUidByClientId($client_id);
+        $guest_ids  = Gateway::getClientIdByUid($guest_uid);
+        $server_uid = Redis3Model::popChatWaittingQueue();
+        Gateway::joinGroup($client_id, $server_uid);
+    }
+
 }
