@@ -32,9 +32,9 @@ class Connect extends Base
         GuestLogic::initConnect($client_id, $data); 
         $is_server_online  = ChatLogic::isServerOnline();
         $is_has_empty_seat = ChatLogic::isHasEmptySeat();
-        $is_news_guest     = GuestLogic::isNewsGuest($client_id);
         // 有客服人员&&有空 = 直接接待
         if ($is_server_online && $is_has_empty_seat) {
+            // 进行连接
             ChatLogic::serverConnectGuest($client_id); 
             //$is_news_guest && chatLogic::welcome($client_id); //双方打个
         // 有客服人员&&没空 = 排队接待

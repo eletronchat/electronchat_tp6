@@ -75,4 +75,17 @@ class Guest extends Base
     }
 
 
+    /**
+     * 通过用户uid获取用户信息
+     *
+     * @uid     用户uid
+     * @return  用户信息
+     */
+    public static function getGuestInfoByUid(string $uid)
+    {
+        $client_ids =  Gateway::getClientIdByUid($uid);
+        $client_id  =  $client_ids[0];
+        $userInfo   =  Redis1Model::getGuestByClientId($client_id);
+        return $userInfo;
+    }
 }

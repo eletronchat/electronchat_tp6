@@ -52,7 +52,7 @@
             $('.guest-online-list').after(
                 '<div class="layui-colla-content layui-show">'
                 +    '<span class="chat-guest">'
-                +    data.guest_name 
+                +    data.speaker
                 +    '</span>'
                 +    '<span class="layui-badge layui-bg-green chat-new-message">new</span'
                 +    '<span>'

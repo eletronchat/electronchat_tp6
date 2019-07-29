@@ -14,6 +14,7 @@
 namespace app\chat\model;
 
 use \app\chat\model\Base;
+use \app\chat\model\{Redis3 as Redis3Model};
 
 class Redis1 extends Base
 {
@@ -101,4 +102,44 @@ class Redis1 extends Base
             return [];
         }
     }
+
+
+    /**
+    * 通过客户连接id设置客户信息
+    * 
+    * @client_id    客户连接id
+    * @data         要设置的数据数组
+    * @return       boolean
+    */
+    public static function setHashByClientId(string $client_id, array $data) : bool
+    {
+        $db3Redis = Redis3Model::getRedisInstance();
+        $db1_key  = $db3Redis->hGet('guest_connect', $client_id);
+        $db1Redis = self::getRedisInstance();
+        if (gettype($db1_key) !== 'string' || strlen($db1_key) == 0) {
+           return false; 
+        }
+        if ($db1Redis->hMSet($db1_key, $data)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+    /**
+     *  通过用户连接id获取用户信息
+     *
+     * @client_id   string 
+     * @return      用户信息
+     */
+    public static function  getGuestByClientId(string $client_id) 
+    {
+       $Redis3 = Redis3Model::getRedisInstance();
+       $db1_key = $Redis3->hGet('guest_connect', $client_id);
+       $Redis1 = self::getRedisInstance();
+       $guest_info = $Redis1->hGetAll($db1_key);
+       return $guest_info;
+    }
+
 }
